@@ -1,3 +1,4 @@
+"use client";
 import { useHomeStore } from '@/lib/stores/homeStore';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
