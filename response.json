@@ -1,0 +1,1341 @@
+{
+    "status": true,
+    "message": "Home page data fetched successfully",
+    "data": {
+        "usedCars": {
+            "featured": [],
+            "cool_auctions": [
+                {
+                    "id": 387,
+                    "title": "2020 Toyota Yaris",
+                    "slug": "2020-toyota-yaris-690ccdbfdac53",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "29,000",
+                    "buy_now_price": "33,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/Ea7cB5MKXy31f81knAHQuuph4LL2g9ToGIJRFDwN.webp",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 135,
+                        "name": "Mansoor Sheikh",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                }
+            ],
+            "hot_listings": [
+                {
+                    "id": 387,
+                    "title": "2020 Toyota Yaris",
+                    "slug": "2020-toyota-yaris-690ccdbfdac53",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "29,000",
+                    "buy_now_price": "33,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/Ea7cB5MKXy31f81knAHQuuph4LL2g9ToGIJRFDwN.webp",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 135,
+                        "name": "Mansoor Sheikh",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 363,
+                    "title": "2023 Kia Sportage LX",
+                    "slug": "2023-kia-sportage-lx-690a22b622c70",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "67,800",
+                    "buy_now_price": "68,900",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/peiGWhG1Tvyjz93kVRNF5RNZ1jl3mfVtruyP3KYK.webp",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 135,
+                        "name": "Mansoor Sheikh",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 478,
+                    "title": "Toyota Corolla 2017",
+                    "slug": "toyota-corolla-2017-6924b49151151",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "0",
+                    "buy_now_price": "19,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/nYzyTg5VOv7TCG95YmQeJTEQ1J84sx3RusWADbJq.png",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 141,
+                        "name": "Ahmed Khan",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "1 month ago"
+                },
+                {
+                    "id": 481,
+                    "title": "Nissan Patrol 2013",
+                    "slug": "nissan-patrol-2013-6924b79d68969",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "0",
+                    "buy_now_price": "34,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/84nHgEn4U6mFOcOYjVAsSuC90Hr77UFrNIV1dbjE.png",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 141,
+                        "name": "Ahmed Khan",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "1 month ago"
+                },
+                {
+                    "id": 367,
+                    "title": "2022 Hyundai Accent Smart",
+                    "slug": "2022-hyundai-accent-smart-690aff65f28b5",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "37,000",
+                    "buy_now_price": "42,500",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/8Vziata9WRdY5f4OoN90Y8ohSey5IINJxT9nrbWI.png",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 33,
+                        "name": "BUSHRA MUKHTAR",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 482,
+                    "title": "Honda Accord 2014",
+                    "slug": "honda-accord-2014-6924b861083b3",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "0",
+                    "buy_now_price": "28,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/weuQfItXc2GWXvpoD7ZMmNaSIlfHDEUpqgAnNC6Q.png",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 141,
+                        "name": "Ahmed Khan",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "1 month ago"
+                },
+                {
+                    "id": 385,
+                    "title": "2022 Kia Sportage",
+                    "slug": "2022-kia-sportage-690cab9f17eb3",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "60,000",
+                    "buy_now_price": "66,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/7jmhOCAlE0HsgpfcvE7jr74mQhhNItO85p5MVidZ.png",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 33,
+                        "name": "BUSHRA MUKHTAR",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                }
+            ],
+            "closing_soon": [
+                {
+                    "id": 387,
+                    "title": "2020 Toyota Yaris",
+                    "slug": "2020-toyota-yaris-690ccdbfdac53",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "29,000",
+                    "buy_now_price": "33,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/Ea7cB5MKXy31f81knAHQuuph4LL2g9ToGIJRFDwN.webp",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 135,
+                        "name": "Mansoor Sheikh",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 363,
+                    "title": "2023 Kia Sportage LX",
+                    "slug": "2023-kia-sportage-lx-690a22b622c70",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "67,800",
+                    "buy_now_price": "68,900",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/peiGWhG1Tvyjz93kVRNF5RNZ1jl3mfVtruyP3KYK.webp",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 135,
+                        "name": "Mansoor Sheikh",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 367,
+                    "title": "2022 Hyundai Accent Smart",
+                    "slug": "2022-hyundai-accent-smart-690aff65f28b5",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "37,000",
+                    "buy_now_price": "42,500",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/8Vziata9WRdY5f4OoN90Y8ohSey5IINJxT9nrbWI.png",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 33,
+                        "name": "BUSHRA MUKHTAR",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 385,
+                    "title": "2022 Kia Sportage",
+                    "slug": "2022-kia-sportage-690cab9f17eb3",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "60,000",
+                    "buy_now_price": "66,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/7jmhOCAlE0HsgpfcvE7jr74mQhhNItO85p5MVidZ.png",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 33,
+                        "name": "BUSHRA MUKHTAR",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                }
+            ],
+            "most_searched": [
+                {
+                    "keyword": "mobile phones",
+                    "count": 28
+                },
+                {
+                    "keyword": "cars",
+                    "count": 25
+                },
+                {
+                    "keyword": "handmade",
+                    "count": 12
+                },
+                {
+                    "keyword": "pizza makers",
+                    "count": 11
+                },
+                {
+                    "keyword": "car parts & accessories",
+                    "count": 11
+                },
+                {
+                    "keyword": "luxury villa for sale",
+                    "count": 11
+                },
+                {
+                    "keyword": "art",
+                    "count": 11
+                },
+                {
+                    "keyword": "iphone",
+                    "count": 11
+                },
+                {
+                    "keyword": "handmade ginkgo leaves metal wall art decor",
+                    "count": 9
+                },
+                {
+                    "keyword": "spacious 3-bedroom apartment for sale in al bandariyyah, riyadh – modern living with great amenities",
+                    "count": 9
+                }
+            ],
+            "by_category": [
+                {
+                    "id": 6153,
+                    "name": "Wrecked cars",
+                    "slug": "Trade-Me-Motors/Wrecked-cars",
+                    "image": null
+                },
+                {
+                    "id": 5646,
+                    "name": "Motorbikes",
+                    "slug": "Trade-Me-Motors/Motorbikes",
+                    "image": null
+                },
+                {
+                    "id": 5708,
+                    "name": "Boats & marine",
+                    "slug": "Trade-Me-Motors/Boats-marine",
+                    "image": null
+                },
+                {
+                    "id": 5752,
+                    "name": "Car parts & accessories",
+                    "slug": "Trade-Me-Motors/Car-parts-accessories",
+                    "image": null
+                },
+                {
+                    "id": 6051,
+                    "name": "Aircraft",
+                    "slug": "Trade-Me-Motors/Aircraft",
+                    "image": null
+                },
+                {
+                    "id": 6055,
+                    "name": "Buses",
+                    "slug": "Trade-Me-Motors/Buses",
+                    "image": null
+                },
+                {
+                    "id": 6062,
+                    "name": "Car stereos",
+                    "slug": "Trade-Me-Motors/Car-stereos",
+                    "image": null
+                },
+                {
+                    "id": 5557,
+                    "name": "Cars",
+                    "slug": "Trade-Me-Motors/Cars",
+                    "image": null
+                },
+                {
+                    "id": 6091,
+                    "name": "Caravans & motorhomes",
+                    "slug": "Trade-Me-Motors/Caravans-motorhomes",
+                    "image": null
+                },
+                {
+                    "id": 6119,
+                    "name": "Horse floats",
+                    "slug": "Trade-Me-Motors/Horse-floats",
+                    "image": null
+                },
+                {
+                    "id": 6120,
+                    "name": "Specialist cars",
+                    "slug": "Trade-Me-Motors/Specialist-cars",
+                    "image": null
+                },
+                {
+                    "id": 6125,
+                    "name": "Trailers",
+                    "slug": "Trade-Me-Motors/Trailers",
+                    "image": null
+                },
+                {
+                    "id": 6138,
+                    "name": "Trucks",
+                    "slug": "Trade-Me-Motors/Trucks",
+                    "image": null
+                }
+            ],
+            "by_budget": [
+                {
+                    "id": 1,
+                    "name": "Under 5 Lakh",
+                    "min_price": 0,
+                    "max_price": 500000,
+                    "count": 19
+                },
+                {
+                    "id": 2,
+                    "name": "5 - 10 Lakh",
+                    "min_price": 500000,
+                    "max_price": 1000000,
+                    "count": 1
+                },
+                {
+                    "id": 3,
+                    "name": "10 - 20 Lakh",
+                    "min_price": 1000000,
+                    "max_price": 2000000,
+                    "count": 1
+                }
+            ],
+            "recently_added": [
+                {
+                    "id": 559,
+                    "title": "ertyu",
+                    "slug": "ertyu-695912411f1d5",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "0",
+                    "buy_now_price": "4,356,789",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/EHCmD5uuQeLasoE1L6cbLs32COt3e8azAtUFkXFi.png",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 90,
+                        "name": "Bilal vakani",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "1 week ago"
+                },
+                {
+                    "id": 498,
+                    "title": "Revo",
+                    "slug": "revo-6927089651e8a",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "1,050,000",
+                    "buy_now_price": "1,100,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/RAVFE7tk1CARck3IBOAKGjEdOl3o1LcXi228w0bO.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 247,
+                        "name": "Haka",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "1 month ago"
+                },
+                {
+                    "id": 482,
+                    "title": "Honda Accord 2014",
+                    "slug": "honda-accord-2014-6924b861083b3",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "0",
+                    "buy_now_price": "28,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/weuQfItXc2GWXvpoD7ZMmNaSIlfHDEUpqgAnNC6Q.png",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 141,
+                        "name": "Ahmed Khan",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "1 month ago"
+                },
+                {
+                    "id": 481,
+                    "title": "Nissan Patrol 2013",
+                    "slug": "nissan-patrol-2013-6924b79d68969",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "0",
+                    "buy_now_price": "34,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/84nHgEn4U6mFOcOYjVAsSuC90Hr77UFrNIV1dbjE.png",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 141,
+                        "name": "Ahmed Khan",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "1 month ago"
+                },
+                {
+                    "id": 478,
+                    "title": "Toyota Corolla 2017",
+                    "slug": "toyota-corolla-2017-6924b49151151",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "0",
+                    "buy_now_price": "19,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/nYzyTg5VOv7TCG95YmQeJTEQ1J84sx3RusWADbJq.png",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 141,
+                        "name": "Ahmed Khan",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "1 month ago"
+                },
+                {
+                    "id": 429,
+                    "title": "car",
+                    "slug": "car-692065dcb55ff",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "4,500",
+                    "buy_now_price": "5,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/RNJUmQEiaVkVPWLuTBiY1mIKKiRYr5ejAxcrLNZG.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 247,
+                        "name": "Haka",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "1 month ago"
+                },
+                {
+                    "id": 414,
+                    "title": "Mehran brakes",
+                    "slug": "mehran-brakes-69162af2cb088",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "0",
+                    "buy_now_price": "3,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/c0bGC98tugPg5hkLRsvhkJLSaXdn9zOS9tc9mcbp.jpg",
+                    "category": {
+                        "id": 5752,
+                        "name": "Car parts & accessories"
+                    },
+                    "creator": {
+                        "id": 143,
+                        "name": "waqas usman",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 410,
+                    "title": "New Bumper",
+                    "slug": "new-bumper-6915fe1b69a82",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "0",
+                    "buy_now_price": "100,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/fcVZr1KrqFe17iFBR94OR5GTIKkrbwj0GRKW6Vic.jpg",
+                    "category": {
+                        "id": 5752,
+                        "name": "Car parts & accessories"
+                    },
+                    "creator": {
+                        "id": 143,
+                        "name": "waqas usman",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 405,
+                    "title": "toyota hilux radiator",
+                    "slug": "toyota-hilux-radiator-6915e2c8e31af",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "0",
+                    "buy_now_price": "130,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/jvsqMJUjflwv1XUWvoT9SFr7EOJUTuqFlcw5o66r.jpg",
+                    "category": {
+                        "id": 5752,
+                        "name": "Car parts & accessories"
+                    },
+                    "creator": {
+                        "id": 144,
+                        "name": "Prince Kavi",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 404,
+                    "title": "honda civic",
+                    "slug": "honda-civic-6914b322badf1",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "1,000,000",
+                    "buy_now_price": "1,200,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/rOfhRF7ZtfSLnwpKBbbEsaBGkkeL3gcKFiULnr9q.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 144,
+                        "name": "Prince Kavi",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                }
+            ]
+        },
+        "newCars": {
+            "popular": [
+                {
+                    "id": 379,
+                    "title": "Kia Sportage 2022",
+                    "slug": "kia-sportage-2022-690bb7a6b6ff5",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "58,000",
+                    "buy_now_price": "60,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/WYVuNotwRM0il29Myh9fFekWXXQraDHGS8FB7YZE.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 138,
+                        "name": "Hafiza Sofia",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 339,
+                    "title": "SINOTRUK HOWO NX 4X2 430HP Tractor Truck",
+                    "slug": "sinotruk-howo-nx-4x2-430hp-tractor-truck-68ff578b5472e",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "121,570",
+                    "buy_now_price": "151,570",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/8N1MiKGWLFAL1gt0yCkn02SYaWvkaSxijAX6yx3l.jpg",
+                    "category": {
+                        "id": 6125,
+                        "name": "Trailers"
+                    },
+                    "creator": {
+                        "id": 123,
+                        "name": "Qaisar  Niaz",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 378,
+                    "title": "Nissan Altima",
+                    "slug": "nissan-altima-690bb70b7f639",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "66,000",
+                    "buy_now_price": "70,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/MYY1vZ5tNcmp4o6UC4S8HjRWuzMXt9oBiTeSuU91.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 138,
+                        "name": "Hafiza Sofia",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 391,
+                    "title": "Toyota Corolla",
+                    "slug": "toyota-corolla-690df6766ed01",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "1,600,000",
+                    "buy_now_price": "200,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/HKYNGRVMfHXxFklQmo6hPeMZx0M6fLnzCJPAtocv.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 123,
+                        "name": "Qaisar  Niaz",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 376,
+                    "title": "Toyota Corolla",
+                    "slug": "toyota-corolla-690b8960c9679",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "150,000",
+                    "buy_now_price": "200,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/dpURm4B7yShLH3SkE1hp5fWziKINwJ8YOXtQxPYT.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 123,
+                        "name": "Qaisar  Niaz",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 408,
+                    "title": "bumper",
+                    "slug": "bumper-6915fc4643b12",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "0",
+                    "buy_now_price": "12,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/ZlA7ztjgxSEIgYbvxs1g5Kec6I2nGEvuReA3rS94.jpg",
+                    "category": {
+                        "id": 5752,
+                        "name": "Car parts & accessories"
+                    },
+                    "creator": {
+                        "id": 143,
+                        "name": "waqas usman",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 406,
+                    "title": "Nissan Patrol",
+                    "slug": "nissan-patrol-6915e479445b6",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "0",
+                    "buy_now_price": "12,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/TQ9w4W5Gf3dGQRGAsxzz3AmjI5KG19ibGXBd80Xt.jpg",
+                    "category": {
+                        "id": 5752,
+                        "name": "Car parts & accessories"
+                    },
+                    "creator": {
+                        "id": 143,
+                        "name": "waqas usman",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 407,
+                    "title": "Front Bumper",
+                    "slug": "front-bumper-6915eb3b5d01b",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "0",
+                    "buy_now_price": "12,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/HZEd2Mb4HDmqEi6IzXA4rs58P0Kmr3At2nFeS1AV.jpg",
+                    "category": {
+                        "id": 5752,
+                        "name": "Car parts & accessories"
+                    },
+                    "creator": {
+                        "id": 143,
+                        "name": "waqas usman",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 377,
+                    "title": "Toyota Corolla",
+                    "slug": "toyota-corolla-690b95ef121d8",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "140,000",
+                    "buy_now_price": "15,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/6Tv57mFdRueikmtl9DcMw1oLnG9qvTxaslkR0b76.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 75,
+                        "name": "wisam ahmed",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 373,
+                    "title": "Toyota Corolla",
+                    "slug": "toyota-corolla-690b375187b0d",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "0",
+                    "buy_now_price": "50,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/btY9NtcynaU2pXldWsje0yMAxczTRndbL7cgrOqy.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 123,
+                        "name": "Qaisar  Niaz",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                }
+            ],
+            "newly_launched": [
+                {
+                    "id": 412,
+                    "title": "Toyota Yaris",
+                    "slug": "toyota-yaris-691624f0a1200",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "0",
+                    "buy_now_price": "1,008,924",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/v51xCH5EePaGwHblaXT4GUafILDtbtSDoAGeglzA.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 143,
+                        "name": "waqas usman",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 408,
+                    "title": "bumper",
+                    "slug": "bumper-6915fc4643b12",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "0",
+                    "buy_now_price": "12,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/ZlA7ztjgxSEIgYbvxs1g5Kec6I2nGEvuReA3rS94.jpg",
+                    "category": {
+                        "id": 5752,
+                        "name": "Car parts & accessories"
+                    },
+                    "creator": {
+                        "id": 143,
+                        "name": "waqas usman",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 407,
+                    "title": "Front Bumper",
+                    "slug": "front-bumper-6915eb3b5d01b",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "0",
+                    "buy_now_price": "12,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/HZEd2Mb4HDmqEi6IzXA4rs58P0Kmr3At2nFeS1AV.jpg",
+                    "category": {
+                        "id": 5752,
+                        "name": "Car parts & accessories"
+                    },
+                    "creator": {
+                        "id": 143,
+                        "name": "waqas usman",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 406,
+                    "title": "Nissan Patrol",
+                    "slug": "nissan-patrol-6915e479445b6",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "0",
+                    "buy_now_price": "12,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/TQ9w4W5Gf3dGQRGAsxzz3AmjI5KG19ibGXBd80Xt.jpg",
+                    "category": {
+                        "id": 5752,
+                        "name": "Car parts & accessories"
+                    },
+                    "creator": {
+                        "id": 143,
+                        "name": "waqas usman",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 391,
+                    "title": "Toyota Corolla",
+                    "slug": "toyota-corolla-690df6766ed01",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "1,600,000",
+                    "buy_now_price": "200,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/HKYNGRVMfHXxFklQmo6hPeMZx0M6fLnzCJPAtocv.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 123,
+                        "name": "Qaisar  Niaz",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 379,
+                    "title": "Kia Sportage 2022",
+                    "slug": "kia-sportage-2022-690bb7a6b6ff5",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "58,000",
+                    "buy_now_price": "60,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/WYVuNotwRM0il29Myh9fFekWXXQraDHGS8FB7YZE.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 138,
+                        "name": "Hafiza Sofia",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 378,
+                    "title": "Nissan Altima",
+                    "slug": "nissan-altima-690bb70b7f639",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "66,000",
+                    "buy_now_price": "70,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/MYY1vZ5tNcmp4o6UC4S8HjRWuzMXt9oBiTeSuU91.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 138,
+                        "name": "Hafiza Sofia",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 377,
+                    "title": "Toyota Corolla",
+                    "slug": "toyota-corolla-690b95ef121d8",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "140,000",
+                    "buy_now_price": "15,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/6Tv57mFdRueikmtl9DcMw1oLnG9qvTxaslkR0b76.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 75,
+                        "name": "wisam ahmed",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 376,
+                    "title": "Toyota Corolla",
+                    "slug": "toyota-corolla-690b8960c9679",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "150,000",
+                    "buy_now_price": "200,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/dpURm4B7yShLH3SkE1hp5fWziKINwJ8YOXtQxPYT.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 123,
+                        "name": "Qaisar  Niaz",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                },
+                {
+                    "id": 375,
+                    "title": "honda civic",
+                    "slug": "honda-civic-690b49f09b9fb",
+                    "brand": null,
+                    "condition": "new",
+                    "start_price": "0",
+                    "buy_now_price": "200,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/4KcHu2axlIu8EeyZoDp7QvRZsCwVzT153Urx3olp.jpg",
+                    "category": {
+                        "id": 5557,
+                        "name": "Cars"
+                    },
+                    "creator": {
+                        "id": 123,
+                        "name": "Qaisar  Niaz",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                }
+            ],
+            "new_cars_by_price": [
+                {
+                    "id": 1,
+                    "name": "Under 5 Lakh",
+                    "min_price": 0,
+                    "max_price": 500000,
+                    "count": 5
+                },
+                {
+                    "id": 2,
+                    "name": "10 - 20 Lakh",
+                    "min_price": 1000000,
+                    "max_price": 2000000,
+                    "count": 1
+                }
+            ],
+            "new_cars_by_brand": [
+                {
+                    "name": "Motly form",
+                    "count": 2,
+                    "buyer": null,
+                    "country_name": null,
+                    "region_name": null,
+                    "governorate_name": null,
+                    "city_name": null,
+                    "final_buyer": null,
+                    "countries": null,
+                    "regions": null,
+                    "governorates": null,
+                    "cities": null
+                }
+            ]
+        },
+        "bikes": {
+            "popular_bikes": [
+                {
+                    "id": 336,
+                    "title": "KTM 390 Duke 2025",
+                    "slug": "ktm-390-duke-2025-68fac5fc27609",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "30,000",
+                    "buy_now_price": "35,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/dwDWjAyk4MTdrlVa2yY26xRnJYgggHBNJS6oS4Qb.jpg",
+                    "category": {
+                        "id": 5646,
+                        "name": "Motorbikes"
+                    },
+                    "creator": {
+                        "id": 75,
+                        "name": "wisam ahmed",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                }
+            ],
+            "used_bikes": [
+                {
+                    "id": 336,
+                    "title": "KTM 390 Duke 2025",
+                    "slug": "ktm-390-duke-2025-68fac5fc27609",
+                    "brand": null,
+                    "condition": "used",
+                    "start_price": "30,000",
+                    "buy_now_price": "35,000",
+                    "image": "https://banglarchaka-motors.datainovate.com/storage/listings/images/dwDWjAyk4MTdrlVa2yY26xRnJYgggHBNJS6oS4Qb.jpg",
+                    "category": {
+                        "id": 5646,
+                        "name": "Motorbikes"
+                    },
+                    "creator": {
+                        "id": 75,
+                        "name": "wisam ahmed",
+                        "address": null
+                    },
+                    "is_featured": false,
+                    "is_managed": false,
+                    "created_at": "2 months ago"
+                }
+            ],
+            "new_bikes": []
+        },
+        "autoStore": {
+            "categories": {
+                "by_category": [
+                    {
+                        "id": 349,
+                        "name": "Accessories",
+                        "slug": "Baby-gear/Car-seats/Accessories"
+                    },
+                    {
+                        "id": 375,
+                        "name": "Footwear & accessories",
+                        "slug": "Baby-gear/Clothing/Footwear-accessories"
+                    },
+                    {
+                        "id": 483,
+                        "name": "Accessories",
+                        "slug": "Baby-gear/Prams-strollers/Accessories"
+                    },
+                    {
+                        "id": 509,
+                        "name": "Dolls & accessories",
+                        "slug": "Baby-gear/Toys/Dolls-accessories"
+                    },
+                    {
+                        "id": 769,
+                        "name": "Entertaining & party",
+                        "slug": "Books/Nonfiction/Cooking/Entertaining-party"
+                    },
+                    {
+                        "id": 1102,
+                        "name": "Accessories & consumables",
+                        "slug": "Building-renovation/Tools/Hand-tools/Accessories-consumables"
+                    },
+                    {
+                        "id": 1118,
+                        "name": "Accessories & consumables",
+                        "slug": "Building-renovation/Tools/Power-tools/Accessories-consumables"
+                    },
+                    {
+                        "id": 1184,
+                        "name": "Parts & components",
+                        "slug": "Business-farming-industry/Farming-forestry/Dairy-milking-equipment/Parts-components"
+                    },
+                    {
+                        "id": 1205,
+                        "name": "Chainsaws & parts",
+                        "slug": "Business-farming-industry/Farming-forestry/Forestry/Chainsaws-parts"
+                    },
+                    {
+                        "id": 1253,
+                        "name": "Parts & accessories",
+                        "slug": "Business-farming-industry/Farming-forestry/Loading-lifting/Parts-accessories"
+                    },
+                    {
+                        "id": 1269,
+                        "name": "Parts & accessories",
+                        "slug": "Business-farming-industry/Farming-forestry/Planting/Parts-accessories"
+                    },
+                    {
+                        "id": 1295,
+                        "name": "Parts & accessories",
+                        "slug": "Business-farming-industry/Farming-forestry/Soil-cultivation/Parts-accessories"
+                    }
+                ],
+                "by_make": [
+                    {
+                        "name": "Audi",
+                        "slug": "audi"
+                    },
+                    {
+                        "name": "bmw",
+                        "slug": "bmw"
+                    },
+                    {
+                        "name": "FORD",
+                        "slug": "ford"
+                    },
+                    {
+                        "name": "GEELY",
+                        "slug": "geely"
+                    },
+                    {
+                        "name": "Haval",
+                        "slug": "haval"
+                    },
+                    {
+                        "name": "Honda",
+                        "slug": "honda"
+                    },
+                    {
+                        "name": "HYUNDAI",
+                        "slug": "hyundai"
+                    },
+                    {
+                        "name": "infiniti",
+                        "slug": "infiniti"
+                    },
+                    {
+                        "name": "ISUZU",
+                        "slug": "isuzu"
+                    },
+                    {
+                        "name": "KIA",
+                        "slug": "kia"
+                    },
+                    {
+                        "name": "Land Rover",
+                        "slug": "land-rover"
+                    },
+                    {
+                        "name": "LEXUS",
+                        "slug": "lexus"
+                    }
+                ],
+                "by_model": [
+                    {
+                        "name": "'34",
+                        "slug": "34"
+                    },
+                    {
+                        "name": "1 series",
+                        "slug": "1-series"
+                    },
+                    {
+                        "name": "10 series",
+                        "slug": "10-series"
+                    },
+                    {
+                        "name": "11 series",
+                        "slug": "11-series"
+                    },
+                    {
+                        "name": "12 series",
+                        "slug": "12-series"
+                    },
+                    {
+                        "name": "128i",
+                        "slug": "128i"
+                    },
+                    {
+                        "name": "13 series",
+                        "slug": "13-series"
+                    },
+                    {
+                        "name": "135i",
+                        "slug": "135i"
+                    },
+                    {
+                        "name": "14 series",
+                        "slug": "14-series"
+                    },
+                    {
+                        "name": "15 Series",
+                        "slug": "15-series"
+                    },
+                    {
+                        "name": "1500 Foldaway",
+                        "slug": "1500-foldaway"
+                    },
+                    {
+                        "name": "16 Series",
+                        "slug": "16-series"
+                    }
+                ]
+            }
+        }
+    }
+}
