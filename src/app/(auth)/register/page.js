@@ -61,7 +61,7 @@ export default function RegisterPage() {
     //   </p>
     // </div>
 
-    <div className="min-h-screen w-full flex flex-col lg:flex-row ">
+    <div className="h-screen w-full flex flex-col lg:flex-row ">
       {/* Left side (Blue section - hidden on mobile) */}
       <div className="hidden lg:flex w-full lg:w-[40%] bg-[#175f48] text-white flex-col justify-between p-8 lg:p-10">
         <div>

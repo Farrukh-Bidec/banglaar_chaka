@@ -19,7 +19,7 @@ const BikesbyMake = () => {
     <section className="bg-[#f2f3f3] py-10 px-35 mt-10 flex justify-center">
       <div className="max-w-6xl w-full">
         {/* Header */}
-        <h2 className="text-[22px] font-semibold text-[#434343] mb-8">
+        <h2 className="text-[22px] font-semibold text-[#434343] mb-8 text-center sm:text-start">
           New Bikes by Make
         </h2>
 

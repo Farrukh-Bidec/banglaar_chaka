@@ -73,7 +73,7 @@ const ManagedbyPakWheels = () => {
   };
 
   return (
-    <div className="bg-[#f2f3f3] py-10 px-35 flex justify-center">
+    <div className="bg-[#f2f3f3] py-10 px-10 sm:px-35 flex justify-center">
       <div className="max-w-6xl w-full">
         {/* Header Section */}
         <div className="flex justify-between items-end mb-4">

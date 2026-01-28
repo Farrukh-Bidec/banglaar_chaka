@@ -19,40 +19,66 @@ const CarsbyMake = () => {
 
 
   return (
-    <section className="py-10 px-30">
-      <div className="max-w-6xl mx-auto">
-        {/* Title */}
-        <h2 className="text-[22px] font-semibold text-[#434343] mb-8">
-          New Cars by Make
-        </h2>
+   <section className="py-8 sm:py-10 px-4 sm:px-6 lg:px-12 xl:px-20 bg-white">
+  <div className="max-w-7xl mx-auto">
+    {/* Title */}
+    <h2 className="text-xl sm:text-[22px] font-semibold text-[#434343] mb-6 sm:mb-8 text-center sm:text-left">
+      New Cars by Make
+    </h2>
 
-        {/* Grid Container */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-y-7 ">
-          {brands.map((make, index) => (
-            <div
-              key={index}
-              onClick={() => handleRedirect(make)} // ← redirect on click
-              className="flex flex-col items-center group cursor-pointer"
-            >
+    {/* Grid Container */}
+    <div className="
+  grid  xs:grid-cols-3 
+  sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 
+  gap-5 sm:gap-6 md:gap-7 lg:gap-8
+  justify-items-center sm:justify-items-start
+">
 
-              <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-100 group-hover:shadow-md transition-shadow duration-300 overflow-hidden mb-3">
-                <img
-                  src={make.image || make.icon || `https://ui-avatars.com/api/?name=${encodeURIComponent(make.name)}&background=random`}
-                  alt={make.name}
-                  className="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300"
-                  onError={(e) => { e.target.src = 'https://via.placeholder.com/50?text=' + make.name }}
-                />
-              </div>
+      {brands.map((make, index) => (
+        <div
+          key={index}
+          onClick={() => handleRedirect(make)}
+          className="flex flex-col items-center group cursor-pointer transition-transform active:scale-95 sm:active:scale-100"
+        >
+          <div className="
+            w-20 h-20 sm:w-24 sm:h-24 
+            bg-white rounded-full 
+            flex items-center justify-center 
+            shadow-sm border border-gray-100 
+            group-hover:shadow-md group-hover:border-gray-200 
+            transition-all duration-300 
+            overflow-hidden mb-3 sm:mb-4
+          ">
+            <img
+              src={make.image || make.icon || `https://ui-avatars.com/api/?name=${encodeURIComponent(make.name)}&background=random`}
+              alt={make.name}
+              className="
+                w-12 h-12 sm:w-14 sm:h-14 
+                object-contain 
+                group-hover:scale-110 
+                transition-transform duration-300
+              "
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = 'https://via.placeholder.com/60?text=' + encodeURIComponent(make.name.charAt(0));
+              }}
+            />
+          </div>
 
-              {/* Brand Name */}
-              <p className="text-[#3b6598] text-[15px] font-medium group-hover:underline">
-                {make.name}
-              </p>
-            </div>
-          ))}
+          {/* Brand Name */}
+          <p className="
+            text-[#3b6598] text-sm sm:text-[15px] 
+            font-medium text-center 
+            group-hover:underline 
+            line-clamp-1 px-1
+          ">
+            {make.name}
+          </p>
         </div>
-      </div>
-    </section>
+      ))}
+    </div>
+  </div>
+</section>
   );
 };
 

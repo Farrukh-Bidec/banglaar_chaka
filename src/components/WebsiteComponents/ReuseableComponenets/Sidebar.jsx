@@ -47,12 +47,12 @@ const Sidebar = () => {
       {/* Fixed Sidebar Toggle Icon (Mobile Only) */}
       {!showSidebar && (
         <button
-          className={`md:hidden text-green-500 bg-white fixed top-4 ${
+          className={`md:hidden text-green-500 bg-white fixed top-20 ${
             isArabic ? "right-4" : "left-4"
           } z-[999]`}
           onClick={() => setShowSidebar(true)}
         >
-          <GoSidebarExpand size={24} />
+          <GoSidebarExpand size={40} />
         </button>
       )}
 
@@ -71,7 +71,7 @@ const Sidebar = () => {
     md:relative md:translate-x-0 md:w-60 md:mt-5 md:rounded-2xl`}
       >
         {/* Close (Mobile Only) */}
-        <div className="flex justify-between items-center mb-4 md:hidden">
+        <div className="flex justify-between items-center mb-10 md:hidden">
           <div className="font-bold text-lg">Ma3rood</div>
           <button onClick={() => setShowSidebar(false)}>
             <FaTimes />
