@@ -18,6 +18,7 @@ const CarsforSaleView = () => {
   }
 
   const featuredCars = homeData.usedCars.hot_listings || [];
+  console.log("Aaa",featuredCars);
 
   const nextSlide = () => {
     if (currentIndex < featuredCars.length - 4) {

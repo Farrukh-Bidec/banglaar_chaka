@@ -9,6 +9,48 @@ const UsedCars = () => {
   const carouselRef = useRef(null);
   const router = useRouter();
 
+  const [isScrollable, setIsScrollable] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  // const [showAll, setShowAll] = useState(false);
+  const ITEMS_PER_CLICK = 4;
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_CLICK);
+
+
+
+  const updateScrollButtons = () => {
+  const el = carouselRef.current;
+  if (!el) return;
+
+  const scrollable = el.scrollWidth > el.clientWidth;
+  setIsScrollable(scrollable);
+
+  setCanScrollLeft(el.scrollLeft > 0);
+  setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+  };
+  useEffect(() => {
+  updateScrollButtons();
+}, [activeTab]);
+
+useEffect(() => {
+  const el = carouselRef.current;
+  if (!el) return;
+
+  updateScrollButtons();
+
+  el.addEventListener("scroll", updateScrollButtons);
+  window.addEventListener("resize", updateScrollButtons);
+
+  return () => {
+    el.removeEventListener("scroll", updateScrollButtons);
+    window.removeEventListener("resize", updateScrollButtons);
+  };
+}, []);
+
+
+
+
+
   const handleRedirect = (item) => {
     let query = `?tab=${activeTab}&value=${encodeURIComponent(item.name)}`;
 
@@ -31,6 +73,7 @@ const UsedCars = () => {
   };
 
   const categories = homeData?.usedCars?.by_category || [];
+console.log("categories",categories);
 
   const brands = homeData?.usedCars?.make || [
     { name: "Toyota", slug: "toyota", image_url: "https://img.icons8.com/color/48/000000/toyota.png" },
@@ -86,6 +129,15 @@ const UsedCars = () => {
     if (activeTab === "Body Type") return BodyType;
     return categories;
   };
+const items = getItems();
+
+const visibleItems = items.slice(0, visibleCount);
+
+   useEffect(() => {
+  setVisibleCount(ITEMS_PER_CLICK);
+}, [activeTab]);
+
+
 
   console.log("brands", brands);
 
@@ -98,7 +150,7 @@ const UsedCars = () => {
   };
 
   return (
-  <div className="bg-[#f2f3f3] py-8 sm:py-10 md:py-12 px-4 sm:px-6 lg:px-12 xl:px-20 min-h-screen flex flex-col items-center">
+  <div className="bg-[#f2f3f3] py-8 sm:py-10 md:py-12 px-4 sm:px-6 lg:px-12 xl:px-20 flex flex-col items-center">
   <div className="max-w-7xl w-full">
     <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-6 text-center md:text-left">
       Browse Used Cars
@@ -126,19 +178,22 @@ const UsedCars = () => {
     {/* Carousel Container */}
     <div className="relative group">
       {/* Left Arrow – hidden on very small screens */}
-      <button
-        onClick={scrollLeft}
-        className="hidden sm:flex absolute -left-3 md:-left-5 top-1/2 -translate-y-1/2 z-10 bg-white w-9 h-9 md:w-10 md:h-10 rounded-full items-center justify-center shadow-md border border-gray-200 text-blue-400 hover:text-blue-600 transition-all opacity-80 hover:opacity-100"
-      >
-        <span className="text-xl md:text-2xl font-bold">‹</span>
-      </button>
+      {isScrollable && canScrollLeft && (
+  <button
+    onClick={scrollLeft}
+    className="hidden sm:flex absolute -left-3 md:-left-5 top-1/2 -translate-y-1/2 z-10 bg-white w-9 h-9 md:w-10 md:h-10 rounded-full items-center justify-center shadow-md border border-gray-200 text-blue-400 hover:text-blue-600 transition-all"
+  >
+    <span className="text-xl md:text-2xl font-bold">‹</span>
+  </button>
+)}
+
 
       <div
         ref={carouselRef}
         className="overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory"
       >
         <div className="flex flex-wrap gap-4 py-2 min-w-fit md:min-w-fit">
-          {getItems().map((item, index) => (
+          {visibleItems.map((item, index) => (
             <div
               key={index}
               className="snap-start w-[calc(50%-0.5rem)] sm:w-[calc(33.33%-1rem)] md:w-[145px] lg:w-[160px] h-[110px] sm:h-[130px] md:h-[120px] flex-shrink-0"
@@ -175,20 +230,37 @@ const UsedCars = () => {
       </div>
 
       {/* Right Arrow */}
-      <button
-        onClick={scrollRight}
-        className="hidden sm:flex absolute -right-3 md:-right-4 top-1/2 -translate-y-1/2 z-10 bg-white w-9 h-9 md:w-10 md:h-10 rounded-full items-center justify-center shadow-md border border-gray-200 text-blue-400 hover:text-blue-600 transition-all opacity-80 hover:opacity-100"
-      >
-        <span className="text-xl md:text-2xl font-bold">›</span>
-      </button>
+      {isScrollable && canScrollRight && (
+  <button
+    onClick={scrollRight}
+    className="hidden sm:flex absolute -right-3 md:-right-4 top-1/2 -translate-y-1/2 z-10 bg-white w-9 h-9 md:w-10 md:h-10 rounded-full items-center justify-center shadow-md border border-gray-200 text-blue-400 hover:text-blue-600 transition-all"
+  >
+    <span className="text-xl md:text-2xl font-bold">›</span>
+  </button>
+)}
+
     </div>
 
     {/* Dots – simple pagination indicator (update logic if you have real pages) */}
-    <div className="flex justify-center mt-6 sm:mt-8 gap-2.5">
+    {/* <div className="flex justify-center mt-6 sm:mt-8 gap-2.5">
       <div className="w-2.5 h-2.5 rounded-full bg-blue-500 cursor-pointer"></div>
       <div className="w-2.5 h-2.5 rounded-full bg-gray-300 hover:bg-gray-400 cursor-pointer"></div>
       <div className="w-2.5 h-2.5 rounded-full bg-gray-300 hover:bg-gray-400 cursor-pointer"></div>
-    </div>
+    </div> */}
+    {visibleCount < items.length && (
+  <button
+    onClick={() =>
+      setVisibleCount((prev) =>
+        Math.min(prev + ITEMS_PER_CLICK, items.length)
+      )
+    }
+    className="flex sm:hidden mx-auto my-4 bg-[#3eb549] text-white px-5 py-2 rounded-lg text-sm font-medium transition-all"
+  >
+    View More
+  </button>
+)}
+
+
   </div>
 </div>
   );

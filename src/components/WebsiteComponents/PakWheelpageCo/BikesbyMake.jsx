@@ -1,19 +1,27 @@
 "use client";
 import { useHomeStore } from '@/lib/stores/homeStore';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const BikesbyMake = () => {
   const { homeData } = useHomeStore();
   const router = useRouter();
+  const bikeMakes = homeData?.autoStore?.categories?.by_make || [];
+
 
   const handleRedirect = (make) => {
     router.push(`/motors?make=${encodeURIComponent(make.name)}`);
   };
+  const ITEMS_PER_CLICK = 6;
+const [visibleCount, setVisibleCount] = useState(ITEMS_PER_CLICK);
+
+useEffect(() => {
+  setVisibleCount(ITEMS_PER_CLICK);
+}, [bikeMakes.length]);
+
 
   // User requested to use 'autoStore.categories.by_make' for BikesbyMake.
   // Note: This data was also used in PartsAccessories for 'Make' tab.
-  const bikeMakes = homeData?.autoStore?.categories?.by_make || [];
 
   return (
     <section className="bg-[#f2f3f3] py-10 px-5 sm:px-35 mt-10 flex justify-center">
@@ -25,7 +33,7 @@ const BikesbyMake = () => {
 
         {/* Grid Container - 5 items per row on desktop */}
         <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-10 gap-x-4">
-          {bikeMakes.map((make, index) => (
+          {bikeMakes.slice(0, visibleCount).map((make, index) => (
             <div
               key={index}
               onClick={() => handleRedirect(make)} // ← redirect on click
@@ -48,7 +56,21 @@ const BikesbyMake = () => {
             </div>
           ))}
         </div>
+        {visibleCount < bikeMakes.length && (
+  <button
+    onClick={() =>
+      setVisibleCount((prev) =>
+        Math.min(prev + ITEMS_PER_CLICK, bikeMakes.length)
+      )
+    }
+    className="flex sm:hidden mx-auto mt-8 bg-[#3eb549] text-white px-5 py-2 rounded-lg text-sm font-medium transition-all"
+  >
+    View More
+  </button>
+)}
+
       </div>
+      
     </section>
   );
 };
