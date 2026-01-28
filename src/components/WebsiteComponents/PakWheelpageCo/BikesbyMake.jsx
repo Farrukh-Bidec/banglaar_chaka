@@ -16,7 +16,7 @@ const BikesbyMake = () => {
   const bikeMakes = homeData?.autoStore?.categories?.by_make || [];
 
   return (
-    <section className="bg-[#f2f3f3] py-10 px-35 mt-10 flex justify-center">
+    <section className="bg-[#f2f3f3] py-10 px-5 sm:px-35 mt-10 flex justify-center">
       <div className="max-w-6xl w-full">
         {/* Header */}
         <h2 className="text-[22px] font-semibold text-[#434343] mb-8 text-center sm:text-start">
@@ -24,7 +24,7 @@ const BikesbyMake = () => {
         </h2>
 
         {/* Grid Container - 5 items per row on desktop */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-10 gap-x-4">
+        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-10 gap-x-4">
           {bikeMakes.map((make, index) => (
             <div
               key={index}

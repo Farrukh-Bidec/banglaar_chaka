@@ -73,7 +73,7 @@ const ManagedbyPakWheels = () => {
   };
 
   return (
-    <div className="bg-[#f2f3f3] py-10 px-10 sm:px-35 flex justify-center">
+    <div className="bg-[#f2f3f3] py-10 px-5 sm:px-35 flex justify-center">
       <div className="max-w-6xl w-full">
         {/* Header Section */}
         <div className="flex justify-between items-end mb-4">
@@ -86,12 +86,12 @@ const ManagedbyPakWheels = () => {
         </div>
 
         {/* Carousel Container */}
-        <div className="relative overflow-hidden group">
+        <div className="relative overflow-auto group">
           {/* Left Arrow */}
           <button
             onClick={prevSlide}
             disabled={currentIndex === 0}
-            className={`absolute top-1/2 -translate-y-1/2 z-1 bg-white w-10 h-10 rounded-full  flex items-center justify-center shadow-md border border-gray-200 transition-all ${currentIndex === 0 ? 'opacity-0' : 'opacity-100'}`}
+            className={`hidden md:flex absolute top-1/2 -translate-y-1/2 z-1 bg-white w-10 h-10 rounded-full   items-center justify-center shadow-md border border-gray-200 transition-all ${currentIndex === 0 ? 'opacity-0' : 'opacity-100'}`}
           >
             <span className="text-blue-500 text-2xl">‹</span>
           </button>
@@ -136,7 +136,7 @@ const ManagedbyPakWheels = () => {
           <button
             onClick={nextSlide}
             disabled={currentIndex >= cars.length - 4}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-md border border-gray-200 transition-all ${currentIndex >= cars.length - 4 ? 'opacity-0' : 'opacity-100'}`}
+            className={`hidden md:flex  absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white w-10 h-10 rounded-full items-center justify-center shadow-md border border-gray-200 transition-all ${currentIndex >= cars.length - 4 ? 'opacity-0' : 'opacity-100'}`}
           >
             <span className="text-blue-500 text-2xl">›</span>
           </button>
