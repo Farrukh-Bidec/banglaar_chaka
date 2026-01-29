@@ -1,59 +1,74 @@
-"use client";
-
+'use client';
 import { useHomeStore } from '@/lib/stores/homeStore';
 import { useRouter } from 'next/navigation';
 import React, { useState, useRef, useEffect } from 'react';
 
 const FeaturedNewCars = () => {
+  // ✅ Hooks always at the top
   const { homeData, isLoading } = useHomeStore();
   const [activeTab, setActiveTab] = useState('Popular');
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardWidth, setCardWidth] = useState(0);
+  const [visibleCards, setVisibleCards] = useState(1);
   const carouselRef = useRef(null);
   const router = useRouter();
 
-  if (isLoading || !homeData?.newCars) {
-    return <div className="py-10 text-center">Loading...</div>;
-  }
-
-  const { newCars } = homeData;
+  // Safe defaults so hooks always run
+  const newCars = homeData?.newCars || {
+    popular: [],
+    upcoming: [],
+    newly_launched: [],
+  };
 
   const carData = {
     Popular: newCars.popular || [],
-    Upcoming: newCars.upcoming || [], // add real API data here if exists
+    Upcoming: newCars.upcoming || [],
     'Newly Launched': newCars.newly_launched || [],
   };
 
-  // Only show tabs that have data
-  const tabs = Object.keys(carData).filter(tab => carData[tab]?.length > 0);
+  const tabs = Object.keys(carData).filter((tab) => carData[tab]?.length > 0);
   const currentCars = carData[activeTab] || [];
 
-  // Reset index when tab changes
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-    setCurrentIndex(0);
-  };
+  // Tab change handler
+ const handleTabChange = (tab) => {
+  setActiveTab(tab);
+  setCurrentIndex(0); // ensures first card is visible
+};
+
 
   const handleRedirect = (car) => {
     router.push(`/motors/${car.slug}`);
   };
 
-  // Calculate card width dynamically
-  const getCardWidth = () => {
-    if (!carouselRef.current) return 0;
-    const firstCard = carouselRef.current.firstChild;
-    if (!firstCard) return 0;
-    const gap = parseInt(getComputedStyle(carouselRef.current).gap || 0);
-    return firstCard.offsetWidth + gap;
-  };
+  // Calculate card width & visible cards
+  useEffect(() => {
+  const updateCardWidth = () => {
+    if (!carouselRef.current) return;
+    const firstCard = carouselRef.current.querySelector('.slide-card');
+    if (!firstCard) return;
 
-  const nextSlide = () => {
-    const cardWidth = getCardWidth();
-    if (!cardWidth) return;
+    const width = firstCard.getBoundingClientRect().width;
+    setCardWidth(width);
 
     const containerWidth = carouselRef.current.offsetWidth;
-    const visibleCards = Math.floor(containerWidth / cardWidth);
-    const maxIndex = currentCars.length - visibleCards;
-    if (currentIndex < maxIndex) setCurrentIndex(currentIndex + 1);
+    const visible = Math.max(1, Math.floor(containerWidth / width));
+    setVisibleCards(visible);
+
+    // Reset currentIndex if it's out of bounds
+    setCurrentIndex((prev) =>
+      prev > currentCars.length - visible ? 0 : prev
+    );
+  };
+
+  updateCardWidth();
+  window.addEventListener('resize', updateCardWidth);
+  return () => window.removeEventListener('resize', updateCardWidth);
+}, [currentCars]);
+
+  const nextSlide = () => {
+    if (currentIndex < currentCars.length - visibleCards) {
+      setCurrentIndex(currentIndex + 1);
+    }
   };
 
   const prevSlide = () => {
@@ -78,14 +93,21 @@ const FeaturedNewCars = () => {
     );
   };
 
+  // Loading or empty states
+  if (isLoading) {
+    return <div className="py-10 text-center">Loading...</div>;
+  }
+
+  if (!currentCars || currentCars.length === 0) {
+    return <div className="py-10 text-center">No cars available.</div>;
+  }
+
   return (
     <div className="bg-[#f2f3f3] py-8 sm:py-10 px-4 sm:px-6 lg:px-12 xl:px-20 flex justify-center">
       <div className="max-w-7xl w-full">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-5 gap-3">
-          <h2 className="text-xl sm:text-[22px] font-semibold text-[#434343]">
-            Featured New Cars
-          </h2>
+          <h2 className="text-xl sm:text-[22px] font-semibold text-[#434343]">Featured New Cars</h2>
           <a
             href="#"
             className="text-[#3b6598] text-sm font-medium hover:underline whitespace-nowrap"
@@ -114,7 +136,7 @@ const FeaturedNewCars = () => {
         </div>
 
         {/* Carousel */}
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-auto">
           {/* Left Arrow */}
           <button
             onClick={prevSlide}
@@ -125,19 +147,18 @@ const FeaturedNewCars = () => {
             <span className="text-blue-500 text-xl md:text-2xl font-bold">‹</span>
           </button>
 
-          {/* Carousel Items */}
+          {/* Items */}
           <div
             ref={carouselRef}
             className="flex transition-transform duration-500 ease-in-out gap-4 sm:gap-5 md:gap-6"
-            style={{ transform: `translateX(-${currentIndex * getCardWidth()}px)` }}
+            style={{ transform: `translateX(-${currentIndex * cardWidth}px)` }}
           >
             {currentCars.map((car, index) => (
               <div
                 key={index}
                 onClick={() => handleRedirect(car)}
-                className="snap-start min-w-[85%] xs:min-w-[70%] sm:min-w-[48%] md:min-w-[32%] lg:min-w-[245px] bg-white rounded-md overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer flex-shrink-0"
+                className="slide-card snap-start min-w-[85%] xs:min-w-[70%] sm:min-w-[48%] md:min-w-[32%] lg:min-w-[245px] bg-white rounded-md overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer flex-shrink-0"
               >
-                {/* Image */}
                 <div className="relative h-40 sm:h-44 md:h-48 w-full flex items-center justify-center bg-gray-50 overflow-hidden">
                   <img
                     src={car.image}
@@ -145,24 +166,12 @@ const FeaturedNewCars = () => {
                     className="max-w-[85%] max-h-[85%] sm:max-w-[90%] object-contain hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-
-                {/* Info */}
                 <div className="p-3 sm:p-4 text-center">
-                  <h3 className="text-[#3b6598] font-bold text-sm sm:text-[16px] mb-2 hover:underline line-clamp-2">
-                    {car.title}
-                  </h3>
-
-                  <p className="text-[#3eb549] font-medium text-sm sm:text-[14px] mb-2">
-                    ৳ {car.buy_now_price || car.start_price}
-                  </p>
-
+                  <h3 className="text-[#3b6598] font-bold text-sm sm:text-[16px] mb-2 hover:underline line-clamp-2">{car.title}</h3>
+                  <p className="text-[#3eb549] font-medium text-sm sm:text-[14px] mb-2">৳ {car.buy_now_price || car.start_price}</p>
                   <div className="flex items-center justify-center gap-2 flex-wrap">
                     {renderStars(car.rating)}
-                    {car.reviews && (
-                      <p className="text-gray-500 text-xs sm:text-[13px]">
-                        {car.reviews} Reviews
-                      </p>
-                    )}
+                    {car.reviews && <p className="text-gray-500 text-xs sm:text-[13px]">{car.reviews} Reviews</p>}
                   </div>
                 </div>
               </div>
@@ -173,7 +182,7 @@ const FeaturedNewCars = () => {
           <button
             onClick={nextSlide}
             className={`hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white w-9 h-9 md:w-10 md:h-10 rounded-full items-center justify-center shadow-md border border-gray-200 transition-opacity duration-200 ${
-              currentIndex >= currentCars.length - Math.floor((carouselRef.current?.offsetWidth || 0) / getCardWidth())
+              currentIndex >= currentCars.length - visibleCards
                 ? 'opacity-0 pointer-events-none'
                 : 'opacity-90 hover:opacity-100'
             }`}

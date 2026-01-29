@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useHomeStore } from '@/lib/stores/homeStore';
 import { useRouter } from 'next/navigation';
 import React, { useState, useRef, useEffect } from 'react';
@@ -7,6 +7,7 @@ const PartsAccessories = () => {
   const { homeData } = useHomeStore();
   const [activeTab, setActiveTab] = useState('Sub Category');
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardWidth, setCardWidth] = useState(0);
   const router = useRouter();
   const carouselRef = useRef(null);
 
@@ -31,18 +32,28 @@ const PartsAccessories = () => {
   };
   const currentItems = data[activeTab];
 
-  // Calculate visible columns (2 rows) and next/prev logic
-  const getCardWidth = () => {
-    if (!carouselRef.current) return 0;
-    const firstCard = carouselRef.current.querySelector('.carousel-card');
-    if (!firstCard) return 0;
-    const gap = parseInt(getComputedStyle(carouselRef.current).gap || 0);
-    return firstCard.offsetWidth + gap;
-  };
+  // Calculate card width
+  useEffect(() => {
+    const updateCardWidth = () => {
+      if (!carouselRef.current) return;
+      const firstCard = carouselRef.current.querySelector('.carousel-card');
+      if (!firstCard) return;
+      const gap = parseInt(getComputedStyle(carouselRef.current).gap || 0);
+      setCardWidth(firstCard.offsetWidth + gap);
+    };
+
+    updateCardWidth();
+    window.addEventListener('resize', updateCardWidth);
+    return () => window.removeEventListener('resize', updateCardWidth);
+  }, [currentItems, activeTab]);
+
+  // Reset index when tab changes
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [activeTab]);
 
   const nextSlide = () => {
-    const cardWidth = getCardWidth();
-    if (!cardWidth) return;
+    if (!cardWidth || !carouselRef.current) return;
     const containerWidth = carouselRef.current.offsetWidth;
     const visibleCols = Math.floor(containerWidth / cardWidth);
     const totalCols = Math.ceil(currentItems.length / 2);
@@ -65,7 +76,7 @@ const PartsAccessories = () => {
           {tabs.map((tab) => (
             <button
               key={tab}
-              onClick={() => { setActiveTab(tab); setCurrentIndex(0); }}
+              onClick={() => setActiveTab(tab)}
               className={`pb-3 text-[16px] sm:text-[17px] font-medium transition-all relative whitespace-nowrap
                 ${activeTab === tab
                   ? 'text-[#232954] border-b-[3px] border-[#3b6598]'
@@ -77,9 +88,8 @@ const PartsAccessories = () => {
           ))}
         </div>
 
-        {/* Carousel for all tabs */}
+        {/* Carousel */}
         <div className="relative group">
-          {/* Left Arrow */}
           <button
             onClick={prevSlide}
             className={`hidden sm:flex absolute -left-2 lg:-left-5 top-1/2 -translate-y-1/2 z-20
@@ -95,7 +105,7 @@ const PartsAccessories = () => {
             <div
               ref={carouselRef}
               className="inline-flex transition-transform duration-500 ease-in-out gap-3 sm:gap-4"
-              style={{ transform: window.innerWidth >= 640 ? `translateX(-${currentIndex * getCardWidth()}px)` : 'none' }}
+              style={{ transform: `translateX(-${currentIndex * cardWidth}px)` }}
             >
               <div className="grid grid-rows-2 grid-flow-col gap-3 sm:gap-4 auto-cols-[minmax(130px,1fr)] sm:auto-cols-[150px]">
                 {currentItems.map((item, index) => (
@@ -123,13 +133,12 @@ const PartsAccessories = () => {
             </div>
           </div>
 
-          {/* Right Arrow */}
           <button
             onClick={nextSlide}
             className={`hidden sm:flex absolute -right-2 lg:-right-5 top-1/2 -translate-y-1/2 z-20
               bg-white w-9 h-9 sm:w-10 sm:h-10 rounded-full items-center justify-center
               shadow-md border border-gray-200 text-[#3b6598] transition-opacity
-              ${currentIndex >= Math.ceil(currentItems.length / 2) - Math.floor((carouselRef.current?.offsetWidth || 0)/getCardWidth())
+              ${currentIndex >= Math.ceil(currentItems.length / 2) - Math.floor((carouselRef.current?.offsetWidth || 0)/cardWidth)
                 ? 'opacity-0 pointer-events-none' : 'opacity-100'}
             `}
           >

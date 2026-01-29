@@ -91,7 +91,7 @@ const Navbar = () => {
     <div className="order-1 sm:order-2 w-full sm:w-auto text-center flex-1 sm:flex-none">
       <Link href="/">
         <Image
-          src="/Ma3rood-logo-green2.png"
+          src={`${!isRTL ? "/logo.png" : "/logo_2.png"}`}
           alt="Al Ma3rood Logo"
           width={220}
           height={45}
