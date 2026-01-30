@@ -30,7 +30,7 @@ const page = () => {
       {/* <PakWheels /> */}
       <UsedCars />
       {/* <PakWheelsOfferings /> */}
-      <ManagedbyPakWheels />
+      {/* <ManagedbyPakWheels /> */}
       <CarsforSaleView />
       <FeaturedNewCars />
       <CarsbyMake />
