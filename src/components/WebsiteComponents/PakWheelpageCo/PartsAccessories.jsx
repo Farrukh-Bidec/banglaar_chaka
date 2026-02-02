@@ -6,10 +6,14 @@ import React, { useState, useRef, useEffect } from 'react';
 const PartsAccessories = () => {
   const { homeData } = useHomeStore();
   const [activeTab, setActiveTab] = useState('Sub Category');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardWidth, setCardWidth] = useState(0);
-  const router = useRouter();
   const carouselRef = useRef(null);
+  const router = useRouter();
+
+  const [isScrollable, setIsScrollable] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const CARD_WIDTH = 170; // approx card width incl gap
+  const SCROLL_ITEMS = 2;
 
   const handleClick = (item) => {
     if (activeTab === 'Sub Category' && item.id) {
@@ -32,36 +36,56 @@ const PartsAccessories = () => {
   };
   const currentItems = data[activeTab];
 
-  // Calculate card width
-  useEffect(() => {
-    const updateCardWidth = () => {
-      if (!carouselRef.current) return;
-      const firstCard = carouselRef.current.querySelector('.carousel-card');
-      if (!firstCard) return;
-      const gap = parseInt(getComputedStyle(carouselRef.current).gap || 0);
-      setCardWidth(firstCard.offsetWidth + gap);
-    };
+  const updateScrollButtons = () => {
+    const el = carouselRef.current;
+    if (!el) return;
+    if (window.innerWidth < 640) {
+      setIsScrollable(false);
+      return;
+    }
 
-    updateCardWidth();
-    window.addEventListener('resize', updateCardWidth);
-    return () => window.removeEventListener('resize', updateCardWidth);
-  }, [currentItems, activeTab]);
+    const scrollable = el.scrollWidth > el.clientWidth;
+    setIsScrollable(scrollable);
 
-  // Reset index when tab changes
-  useEffect(() => {
-    setCurrentIndex(0);
-  }, [activeTab]);
-
-  const nextSlide = () => {
-    if (!cardWidth || !carouselRef.current) return;
-    const containerWidth = carouselRef.current.offsetWidth;
-    const visibleCols = Math.floor(containerWidth / cardWidth);
-    const totalCols = Math.ceil(currentItems.length / 2);
-    if (currentIndex < totalCols - visibleCols) setCurrentIndex(currentIndex + 1);
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
   };
 
-  const prevSlide = () => {
-    if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (el) {
+      el.scrollTo({left: 0,behavior: 'smooth',});
+    }
+    updateScrollButtons();
+  }, [activeTab]);
+
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+
+    updateScrollButtons();
+
+    el.addEventListener('scroll', updateScrollButtons);
+    window.addEventListener('resize', updateScrollButtons);
+
+    return () => {
+      el.removeEventListener('scroll', updateScrollButtons);
+      window.removeEventListener('resize', updateScrollButtons);
+    };
+  }, []);
+
+  const scrollLeft = () => {
+    carouselRef.current.scrollBy({
+      left: -CARD_WIDTH * SCROLL_ITEMS,
+      behavior: 'smooth',
+    });
+  };
+
+  const scrollRight = () => {
+    carouselRef.current.scrollBy({
+      left: CARD_WIDTH * SCROLL_ITEMS,
+      behavior: 'smooth',
+    });
   };
 
   return (
@@ -90,32 +114,28 @@ const PartsAccessories = () => {
 
         {/* Carousel */}
         <div className="relative group">
-          <button
-            onClick={prevSlide}
-            className={`hidden sm:flex absolute -left-2 lg:-left-5 top-1/2 -translate-y-1/2 z-20
-              bg-white w-9 h-9 sm:w-10 sm:h-10 rounded-full items-center justify-center
-              shadow-md border border-gray-200 text-[#3b6598] transition-opacity
-              ${currentIndex === 0 ? 'opacity-0 pointer-events-none' : 'opacity-100'}
-            `}
-          >
-            <span className="text-2xl sm:text-3xl">‹</span>
-          </button>
-
-          <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent -mx-1 px-1">
-            <div
-              ref={carouselRef}
-              className="inline-flex transition-transform duration-500 ease-in-out gap-3 sm:gap-4"
-              style={{ transform: `translateX(-${currentIndex * cardWidth}px)` }}
+          {isScrollable && canScrollLeft && (
+            <button
+              onClick={scrollLeft}
+              className="hidden sm:flex absolute -left-3 md:-left-5 top-1/2 -translate-y-1/2 z-10 bg-white w-9 h-9 md:w-10 md:h-10 rounded-full items-center justify-center shadow-md border border-gray-200 text-blue-400 hover:text-blue-600 transition-all"
             >
-              <div className="grid grid-rows-2 grid-flow-col gap-3 sm:gap-4 auto-cols-[minmax(130px,1fr)] sm:auto-cols-[150px]">
-                {currentItems.map((item, index) => (
+              <span className="text-xl md:text-2xl font-bold">‹</span>
+            </button>
+          )}
+
+          <div
+            ref={carouselRef}
+            className="overflow-x-hidden sm:overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory"
+          >
+            <div className="flex flex-wrap sm:flex-nowrap gap-4 py-2 min-w-fit">
+              {currentItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="snap-start w-[calc(50%-0.5rem)] sm:w-[calc(33.33%-1rem)] md:w-[150px] lg:w-[160px] h-[150px] sm:h-[160px] flex-shrink-0"
+                >
                   <div
-                    key={index}
-                    className="carousel-card w-[130px] xs:w-[140px] sm:w-[150px] min-w-[120px] max-w-[180px]
-                      bg-white p-3 sm:p-4 rounded-sm shadow-sm border border-transparent 
-                      hover:border-[#3b6598]/30 transition-all 
-                      flex flex-col items-center justify-center cursor-pointer h-[140px] sm:h-32 snap-center"
                     onClick={() => handleClick(item)}
+                    className="bg-white p-3 sm:p-4 h-full rounded-sm shadow-sm border border-transparent hover:border-[#3b6598]/30 transition-all flex flex-col items-center justify-center cursor-pointer group/card"
                   >
                     <div className="h-16 sm:h-20 w-full flex items-center justify-center mb-2 sm:mb-3">
                       <img
@@ -124,26 +144,23 @@ const PartsAccessories = () => {
                         className="max-h-full max-w-[80%] object-contain hover:scale-110 transition-transform duration-300"
                       />
                     </div>
-                    <p className="text-[13px] sm:text-[14px] font-medium text-[#434343] text-center leading-tight">
+                    <p className="text-[13px] sm:text-[14px] font-medium text-[#434343] text-center leading-tight line-clamp-2">
                       {item.name}
                     </p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <button
-            onClick={nextSlide}
-            className={`hidden sm:flex absolute -right-2 lg:-right-5 top-1/2 -translate-y-1/2 z-20
-              bg-white w-9 h-9 sm:w-10 sm:h-10 rounded-full items-center justify-center
-              shadow-md border border-gray-200 text-[#3b6598] transition-opacity
-              ${currentIndex >= Math.ceil(currentItems.length / 2) - Math.floor((carouselRef.current?.offsetWidth || 0)/cardWidth)
-                ? 'opacity-0 pointer-events-none' : 'opacity-100'}
-            `}
-          >
-            <span className="text-2xl sm:text-3xl">›</span>
-          </button>
+          {isScrollable && canScrollRight && (
+            <button
+              onClick={scrollRight}
+              className="hidden sm:flex absolute -right-3 md:-right-5 top-1/2 -translate-y-1/2 z-10 bg-white w-9 h-9 md:w-10 md:h-10 rounded-full items-center justify-center shadow-md border border-gray-200 text-blue-400 hover:text-blue-600 transition-all"
+            >
+              <span className="text-xl md:text-2xl font-bold">›</span>
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -7,11 +7,14 @@ const FeaturedNewCars = () => {
   // ✅ Hooks always at the top
   const { homeData, isLoading } = useHomeStore();
   const [activeTab, setActiveTab] = useState('Popular');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardWidth, setCardWidth] = useState(0);
-  const [visibleCards, setVisibleCards] = useState(1);
   const carouselRef = useRef(null);
   const router = useRouter();
+
+  const [isScrollable, setIsScrollable] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const CARD_WIDTH = 270; // approx card width incl gap
+  const SCROLL_ITEMS = 2;
 
   // Safe defaults so hooks always run
   const newCars = homeData?.newCars || {
@@ -29,50 +32,60 @@ const FeaturedNewCars = () => {
   const tabs = Object.keys(carData).filter((tab) => carData[tab]?.length > 0);
   const currentCars = carData[activeTab] || [];
 
-  // Tab change handler
- const handleTabChange = (tab) => {
-  setActiveTab(tab);
-  setCurrentIndex(0); // ensures first card is visible
-};
+  const updateScrollButtons = () => {
+    const el = carouselRef.current;
+    if (!el) return;
+    if (window.innerWidth < 640) {
+      setIsScrollable(false);
+      return;
+    }
 
+    const scrollable = el.scrollWidth > el.clientWidth;
+    setIsScrollable(scrollable);
+
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+  };
+
+  useEffect(() => {
+    updateScrollButtons();
+  }, [activeTab]);
+
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+
+    updateScrollButtons();
+
+    el.addEventListener('scroll', updateScrollButtons);
+    window.addEventListener('resize', updateScrollButtons);
+
+    return () => {
+      el.removeEventListener('scroll', updateScrollButtons);
+      window.removeEventListener('resize', updateScrollButtons);
+    };
+  }, []);
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
 
   const handleRedirect = (car) => {
     router.push(`/motors/${car.slug}`);
   };
 
-  // Calculate card width & visible cards
-  useEffect(() => {
-  const updateCardWidth = () => {
-    if (!carouselRef.current) return;
-    const firstCard = carouselRef.current.querySelector('.slide-card');
-    if (!firstCard) return;
-
-    const width = firstCard.getBoundingClientRect().width;
-    setCardWidth(width);
-
-    const containerWidth = carouselRef.current.offsetWidth;
-    const visible = Math.max(1, Math.floor(containerWidth / width));
-    setVisibleCards(visible);
-
-    // Reset currentIndex if it's out of bounds
-    setCurrentIndex((prev) =>
-      prev > currentCars.length - visible ? 0 : prev
-    );
+  const scrollLeft = () => {
+    carouselRef.current.scrollBy({
+      left: -CARD_WIDTH * SCROLL_ITEMS,
+      behavior: 'smooth',
+    });
   };
 
-  updateCardWidth();
-  window.addEventListener('resize', updateCardWidth);
-  return () => window.removeEventListener('resize', updateCardWidth);
-}, [currentCars]);
-
-  const nextSlide = () => {
-    if (currentIndex < currentCars.length - visibleCards) {
-      setCurrentIndex(currentIndex + 1);
-    }
-  };
-
-  const prevSlide = () => {
-    if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
+  const scrollRight = () => {
+    carouselRef.current.scrollBy({
+      left: CARD_WIDTH * SCROLL_ITEMS,
+      behavior: 'smooth',
+    });
   };
 
   const renderStars = (rating) => {
@@ -93,15 +106,6 @@ const FeaturedNewCars = () => {
     );
   };
 
-  // Loading or empty states
-  if (isLoading) {
-    return <div className="py-10 text-center">Loading...</div>;
-  }
-
-  if (!currentCars || currentCars.length === 0) {
-    return <div className="py-10 text-center">No cars available.</div>;
-  }
-
   return (
     <div className="bg-[#f2f3f3] py-8 sm:py-10 px-4 sm:px-6 lg:px-12 xl:px-20 flex justify-center">
       <div className="max-w-7xl w-full">
@@ -117,16 +121,15 @@ const FeaturedNewCars = () => {
         </div>
 
         {/* Tabs */}
-        <div className="overflow-x-auto scrollbar-hide mb-6 sm:mb-8 border-b border-gray-300">
-          <div className="flex gap-6 sm:gap-10 pb-1">
+        <div className="border-b border-gray-300 mb-6 md:mb-8 overflow-x-auto scrollbar-hide">
+          <div className="flex flex-nowrap md:flex-nowrap gap-6 md:gap-8 pb-2">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => handleTabChange(tab)}
-                className={`pb-3 px-1 text-base sm:text-[17px] font-medium transition-all whitespace-nowrap flex-shrink-0 ${
-                  activeTab === tab
-                    ? 'text-[#232954] border-b-[3px] border-[#3b6598]'
-                    : 'text-gray-500 hover:text-gray-800'
+                className={`pb-3 px-1 text-base md:text-[17px] font-medium transition-all whitespace-nowrap relative flex-shrink-0 ${activeTab === tab
+                  ? 'text-gray-900 border-b-[3px] border-blue-500'
+                  : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
                 {tab}
@@ -136,59 +139,55 @@ const FeaturedNewCars = () => {
         </div>
 
         {/* Carousel */}
-        <div className="relative overflow-auto">
-          {/* Left Arrow */}
-          <button
-            onClick={prevSlide}
-            className={`hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white w-9 h-9 md:w-10 md:h-10 rounded-full items-center justify-center shadow-md border border-gray-200 transition-opacity duration-200 ${
-              currentIndex === 0 ? 'opacity-0 pointer-events-none' : 'opacity-90 hover:opacity-100'
-            }`}
-          >
-            <span className="text-blue-500 text-xl md:text-2xl font-bold">‹</span>
-          </button>
+        <div className="relative group">
+          {isScrollable && canScrollLeft && (
+            <button
+              onClick={scrollLeft}
+              className="hidden sm:flex absolute -left-3 md:-left-5 top-1/2 -translate-y-1/2 z-10 bg-white w-9 h-9 md:w-10 md:h-10 rounded-full items-center justify-center shadow-md border border-gray-200 text-blue-400 hover:text-blue-600 transition-all"
+            >
+              <span className="text-xl md:text-2xl font-bold">‹</span>
+            </button>
+          )}
 
-          {/* Items */}
           <div
             ref={carouselRef}
-            className="flex transition-transform duration-500 ease-in-out gap-4 sm:gap-5 md:gap-6"
-            style={{ transform: `translateX(-${currentIndex * cardWidth}px)` }}
+            className="overflow-x-hidden sm:overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory"
           >
-            {currentCars.map((car, index) => (
-              <div
-                key={index}
-                onClick={() => handleRedirect(car)}
-                className="slide-card snap-start min-w-[85%] xs:min-w-[70%] sm:min-w-[48%] md:min-w-[32%] lg:min-w-[245px] bg-white rounded-md overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer flex-shrink-0"
-              >
-                <div className="relative h-40 sm:h-44 md:h-48 w-full flex items-center justify-center bg-gray-50 overflow-hidden">
-                  <img
-                    src={car.image}
-                    alt={car.title}
-                    className="max-w-[85%] max-h-[85%] sm:max-w-[90%] object-contain hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-3 sm:p-4 text-center">
-                  <h3 className="text-[#3b6598] font-bold text-sm sm:text-[16px] mb-2 hover:underline line-clamp-2">{car.title}</h3>
-                  <p className="text-[#3eb549] font-medium text-sm sm:text-[14px] mb-2">৳ {car.buy_now_price || car.start_price}</p>
-                  <div className="flex items-center justify-center gap-2 flex-wrap">
-                    {renderStars(car.rating)}
-                    {car.reviews && <p className="text-gray-500 text-xs sm:text-[13px]">{car.reviews} Reviews</p>}
+            <div className="flex flex-nowrap gap-4 sm:gap-5 md:gap-6 py-2 min-w-fit">
+              {currentCars.map((car, index) => (
+                <div
+                  key={index}
+                  onClick={() => handleRedirect(car)}
+                  className="snap-start w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.33%-1.5rem)] lg:w-[250px] bg-white rounded-md overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer flex-shrink-0"
+                >
+                  <div className="relative h-40 sm:h-44 md:h-48 w-full flex items-center justify-center bg-gray-50 overflow-hidden">
+                    <img
+                      src={car.image}
+                      alt={car.title}
+                      className="max-w-[85%] max-h-[85%] sm:max-w-[90%] object-contain hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-3 sm:p-4 text-center">
+                    <h3 className="text-[#3b6598] font-bold text-sm sm:text-[16px] mb-2 hover:underline line-clamp-2">{car.title}</h3>
+                    <p className="text-[#3eb549] font-medium text-sm sm:text-[14px] mb-2">৳ {car.buy_now_price || car.start_price}</p>
+                    <div className="flex items-center justify-center gap-2 flex-wrap">
+                      {renderStars(car.rating)}
+                      {car.reviews && <p className="text-gray-500 text-xs sm:text-[13px]">{car.reviews} Reviews</p>}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
-          {/* Right Arrow */}
-          <button
-            onClick={nextSlide}
-            className={`hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white w-9 h-9 md:w-10 md:h-10 rounded-full items-center justify-center shadow-md border border-gray-200 transition-opacity duration-200 ${
-              currentIndex >= currentCars.length - visibleCards
-                ? 'opacity-0 pointer-events-none'
-                : 'opacity-90 hover:opacity-100'
-            }`}
-          >
-            <span className="text-blue-500 text-xl md:text-2xl font-bold">›</span>
-          </button>
+          {isScrollable && canScrollRight && (
+            <button
+              onClick={scrollRight}
+              className="hidden sm:flex absolute -right-3 md:-right-4 top-1/2 -translate-y-1/2 z-10 bg-white w-9 h-9 md:w-10 md:h-10 rounded-full items-center justify-center shadow-md border border-gray-200 text-blue-400 hover:text-blue-600 transition-all"
+            >
+              <span className="text-xl md:text-2xl font-bold">›</span>
+            </button>
+          )}
         </div>
       </div>
     </div>
