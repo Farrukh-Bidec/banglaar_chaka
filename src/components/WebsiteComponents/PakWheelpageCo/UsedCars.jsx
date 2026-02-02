@@ -18,6 +18,10 @@ const UsedCars = () => {
   const updateScrollButtons = () => {
     const el = carouselRef.current;
     if (!el) return;
+    if (window.innerWidth < 640) {
+    setIsScrollable(false);
+    return;
+    }
 
     const scrollable = el.scrollWidth > el.clientWidth;
     setIsScrollable(scrollable);
@@ -70,8 +74,10 @@ const UsedCars = () => {
   const brands = homeData?.usedCars?.make || [];
   const BodyType = homeData?.usedCars?.body_type || [];
   const Model = homeData?.usedCars?.model || [];
-  const cities = homeData?.usedCars?.city || [];
+  const cities = homeData?.usedCars?.cities || [];
   const Budget = homeData?.usedCars?.by_budget || [];
+
+  console.log("aa", categories);
 
   const tabs = ["Category", "City", "Make", "Model", "Budget", "Body Type"];
 
@@ -85,19 +91,32 @@ const UsedCars = () => {
   };
   const items = getItems();
 
-  const visibleItems = items.slice(0, visibleCount);
+  const visibleItems = typeof window !== "undefined" && window.innerWidth < 640
+    ? items.slice(0, visibleCount)
+    : items;
+
 
   useEffect(() => {
     setVisibleCount(ITEMS_PER_CLICK); // reset on tab change
   }, [activeTab]);
 
-  const scrollLeft = () => {
-    carouselRef.current.scrollBy({ left: -carouselRef.current.offsetWidth, behavior: "smooth" });
-  };
+  const CARD_WIDTH = 170; // approx md/lg card width incl gap
+const SCROLL_ITEMS = 2;
 
-  const scrollRight = () => {
-    carouselRef.current.scrollBy({ left: carouselRef.current.offsetWidth, behavior: "smooth" });
-  };
+const scrollLeft = () => {
+  carouselRef.current.scrollBy({
+    left: -CARD_WIDTH * SCROLL_ITEMS,
+    behavior: "smooth",
+  });
+};
+
+const scrollRight = () => {
+  carouselRef.current.scrollBy({
+    left: CARD_WIDTH * SCROLL_ITEMS,
+    behavior: "smooth",
+  });
+};
+
 
   return (
     <div className="bg-[#f2f3f3] py-8 sm:py-10 md:py-12 px-4 sm:px-6 lg:px-12 xl:px-20 flex flex-col items-center">
@@ -108,16 +127,15 @@ const UsedCars = () => {
 
         {/* Tabs */}
         <div className="border-b border-gray-300 mb-6 md:mb-8 overflow-x-auto scrollbar-hide">
-          <div className="flex flex-nowrap md:flex-wrap gap-6 md:gap-8 pb-2">
+          <div className="flex flex-nowrap md:flex-nowrap gap-6 md:gap-8 pb-2">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`pb-3 px-1 text-base md:text-[17px] font-medium transition-all whitespace-nowrap relative flex-shrink-0 ${
-                  activeTab === tab
+                className={`pb-3 px-1 text-base md:text-[17px] font-medium transition-all whitespace-nowrap relative flex-shrink-0 ${activeTab === tab
                     ? "text-gray-900 border-b-[3px] border-blue-500"
                     : "text-gray-600 hover:text-gray-900"
-                }`}
+                  }`}
               >
                 {tab}
               </button>
@@ -136,8 +154,11 @@ const UsedCars = () => {
             </button>
           )}
 
-          <div ref={carouselRef} className="overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory">
-            <div className="flex flex-wrap gap-4 py-2 min-w-fit md:min-w-fit">
+          <div
+            ref={carouselRef}
+            className="overflow-x-hidden sm:overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory"
+          >
+            <div className="flex flex-wrap sm:flex-nowrap gap-4 py-2 min-w-fit">
               {visibleItems.map((item, index) => (
                 <div
                   key={index}
