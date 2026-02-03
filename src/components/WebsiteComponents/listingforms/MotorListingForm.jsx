@@ -462,7 +462,7 @@ const MotorListingForm = ({ initialValues, mode = "create" }) => {
       formData.append("allow_offers", data.allow_offers ? "1" : "0");
       formData.append("start_price", data.start_price || "");
       formData.append("reserve_price", data.reserve_price || "");
-      formData.append("pickup_option", "pickup_available");
+      formData.append("pickup_option", 1);
       if (data.expire_at) {
         formData.append("expire_at", data.expire_at.toISOString());
       }

@@ -10,6 +10,16 @@ const MotorsClient = ({ initialProducts, pagination, initialFilters = {} }) => {
     const [viewMode, setViewMode] = useState("grid"); // 'grid' or 'list'
     const [sortBy, setSortBy] = useState("price_low");
     const [motorListings, setMotorListings] = useState(initialProducts || []);
+    
+
+
+    const normalizeListings = (response) => {
+    if (Array.isArray(response)) return response;
+    if (Array.isArray(response?.data)) return response.data;
+    if (Array.isArray(response?.listings)) return response.listings;
+    return [];
+    };
+
 
     // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
@@ -63,7 +73,17 @@ const MotorsClient = ({ initialProducts, pagination, initialFilters = {} }) => {
                 category_id: filters?.category_id || "",
             };
 
-            const response = await motorsApi.getMotorsByFilter(payload); // Assuming getMotorsByFilter handles pagination or similar call
+            const response = await motorsApi.getMotorsByFilter(payload);
+            const newData = normalizeListings(response);
+
+            if (newData.length > 0) {
+                setMotorListings((prev) => [...prev, ...newData]);
+                setCurrentPage(nextPage);
+                setHasMore(newData.length >= 6);
+            } else {
+                setHasMore(false);
+            }
+ // Assuming getMotorsByFilter handles pagination or similar call
 
             // If the API wrapper returns directly an array or object, adjust here. 
             // Based on previous code: 
@@ -74,7 +94,7 @@ const MotorsClient = ({ initialProducts, pagination, initialFilters = {} }) => {
             // BUT loadMotorListings had: "const response = await motorsApi.getMotorsByFilter(payload);"
             // I will use motorsApi.getMotorsByFilter as it seems more correct for "MotorListings".
 
-            const newData = response || [];
+            // const newData = response || [];
             // Assuming response contains pagination info if we need to check end of list accurately. 
             // If getMotorsByFilter returns just the array (as implied by setMotorListings(response || []) in loadMotorListings), 
             // we might not get pagination metadata here. 
@@ -124,7 +144,11 @@ const MotorsClient = ({ initialProducts, pagination, initialFilters = {} }) => {
             };
 
             const response = await motorsApi.getMotorsByFilter(payload);
-            setMotorListings(response || []);
+    const listings = normalizeListings(response);
+
+    setMotorListings(listings);
+    setHasMore(listings.length >= 30);
+    setCurrentPage(1);
             // verification: if response is array, we might need to reset hasMore
             if (response && response.length >= 30) {
                 setHasMore(true);
@@ -204,15 +228,15 @@ const MotorsClient = ({ initialProducts, pagination, initialFilters = {} }) => {
     // The API does sorting, but the original code had client-side sorting on `motorListings`. 
     // If the API returns sorted data, client-side sort is redundant but harmless if consistent.
     // I'll keep the client-side sort logic for the currently viewed list as requested ("make sure code does not break").
-    const sortedListings = [...motorListings].sort((a, b) => {
+    const sortedListings = Array.isArray(motorListings)
+    ? [...motorListings].sort((a, b) => {
         const getPrice = (item) => {
-            if (item.allow_offers) {
-                return parseFloat(item.start_price) || 0;
-            }
+            if (item.allow_offers) return parseFloat(item.start_price) || 0;
             return parseFloat(item.buy_now_price) || 0;
         };
 
-        const getCreatedAt = (item) => new Date(item.created_at).getTime();
+        const getCreatedAt = (item) =>
+            new Date(item.created_at).getTime();
 
         switch (sortBy) {
             case "price_low":
@@ -226,7 +250,9 @@ const MotorsClient = ({ initialProducts, pagination, initialFilters = {} }) => {
             default:
                 return 0;
         }
-    });
+    })
+    : [];
+
 
     return (
         <div className="bg-white min-h-screen">
