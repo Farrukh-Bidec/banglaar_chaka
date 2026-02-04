@@ -26,6 +26,7 @@ import {
   isSupportedVehicleType,
 } from "@/lib/vehicles";
 import SearchableDropdown from "@/components/WebsiteComponents/ReuseableComponenets/SearchableDropdown";
+import { makeAndModelApi } from "@/lib/api/make";
 
 const motorListingSchema = z
   .object({
@@ -47,6 +48,7 @@ const motorListingSchema = z
     buy_now_price: z.string().optional(),
     allow_offers: z.boolean().optional(),
     start_price: z.string().optional(),
+    brand_id: z.string().optional(),
     reserve_price: z.string().optional(),
     expire_at: z.date().optional(),
     payment_method_id: z.string().optional(),
@@ -223,6 +225,8 @@ const MotorListingForm = ({ initialValues, mode = "create" }) => {
   const [currentCategories, setCurrentCategories] = useState([]);
   const [loadingCategories, setLoadingCategories] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [brands, setBrands] = useState([])
+  const [allmodels, setAllModels] = useState([])
   const vehicle_type =
     categoryStack.length > 0 ? categoryStack?.[0]?.name : selectedCategory?.name;
 
@@ -240,7 +244,7 @@ const MotorListingForm = ({ initialValues, mode = "create" }) => {
 
       setLoadingVehicleData(true);
       try {
-        console.log('type',vehicle_type)
+        console.log('type', vehicle_type)
         const vehicleType = getVehicleTypeFromCategory(vehicle_type);
         const data = await getTransformedVehicleData(vehicleType);
         setVehicleData(data);
@@ -462,6 +466,7 @@ const MotorListingForm = ({ initialValues, mode = "create" }) => {
       formData.append("allow_offers", data.allow_offers ? "1" : "0");
       formData.append("start_price", data.start_price || "");
       formData.append("reserve_price", data.reserve_price || "");
+      formData.append("brand_id", data.brand_id || "");
       formData.append("pickup_option", 1);
       if (data.expire_at) {
         formData.append("expire_at", data.expire_at.toISOString());
@@ -550,12 +555,38 @@ const MotorListingForm = ({ initialValues, mode = "create" }) => {
       const errorMessage = extractErrorMessage(error, "Failed to create motor listing. Please try again.");
       toast.error(errorMessage);
       setIsSubmitting(false);
-    } 
+    }
     // finally {
     //   setIsSubmitting(false);
     // }
   };
 
+  const fetchMakes = async () => {
+    try {
+      const res = await makeAndModelApi.getAllMakes()
+      setBrands(res.data)
+      console.log("brands", brands)
+    } catch (error) {
+      console.log("Fetching makes Error log to console ", error);
+
+    }
+  }
+  const fetchModel = async (brand_id) => {
+    try {
+      const res = await makeAndModelApi.getModelsByMake(brand_id)
+      setAllModels(res.data)
+      console.log("models", allmodels)
+    } catch (error) {
+      console.log("Fetching models Error log to console ", error);
+
+    }
+  }
+
+  useEffect(() => {
+    fetchMakes()
+    console.log("brands 2", brands)
+
+  }, [])
   const nextStep = () => {
     if (activeStep < steps.length - 1) {
       setActiveStep(activeStep + 1);
@@ -931,9 +962,17 @@ const MotorListingForm = ({ initialValues, mode = "create" }) => {
                 control={control}
                 render={({ field }) => (
                   <SearchableDropdown
-                    options={vehicleData.map((vehicle) => vehicle.make)}
+                    options={brands.map((vehicle) => vehicle.name)}
                     value={field.value}
-                    onChange={field.onChange}
+                    onChange={(val) => {
+                      field.onChange(val);
+                      const selectedBrandObj = brands.find((b) => b.name === val);
+                      if (selectedBrandObj) {
+                        setValue("brand_id", String(selectedBrandObj.id));
+                        fetchModel(selectedBrandObj.id);
+                        setValue("model", ""); // Reset model when make changes
+                      }
+                    }}
                     placeholder="Select Brand"
                     disabled={loadingVehicleData}
                     loading={loadingVehicleData}
@@ -958,14 +997,10 @@ const MotorListingForm = ({ initialValues, mode = "create" }) => {
                 control={control}
                 render={({ field }) => {
                   const selectedBrand = watch("make");
-                  const models =
-                    vehicleData.find(
-                      (vehicle) => vehicle.make === selectedBrand
-                    )?.models || [];
 
                   return (
                     <SearchableDropdown
-                      options={models.map((model) => model.name)}
+                      options={allmodels.map((model) => model.name)}
                       value={field.value}
                       onChange={field.onChange}
                       placeholder="Select Model"
@@ -994,14 +1029,26 @@ const MotorListingForm = ({ initialValues, mode = "create" }) => {
                 render={({ field }) => {
                   const selectedBrand = watch("make");
                   const selectedModel = watch("model");
-                  const years = (
-                    vehicleData
-                      .find((vehicle) => vehicle.make === selectedBrand)
-                      ?.models.find((m) => m.name === selectedModel)?.years ||
-                    []
-                  )
-                    .slice()
-                    .sort((a, b) => b - a);
+
+                  let availableYears = vehicleData
+                    .find((vehicle) => vehicle.make === selectedBrand)
+                    ?.models.find((m) => m.name === selectedModel)?.years || [];
+
+                  // Fallback: Check API models if JSON data is missing
+                  if (availableYears.length === 0) {
+                    const modelFromApi = allmodels.find(m => m.name === selectedModel);
+                    if (modelFromApi && modelFromApi.years && Array.isArray(modelFromApi.years)) {
+                      availableYears = modelFromApi.years;
+                    }
+                  }
+
+                  // Fallback: Default range if no years found
+                  if (availableYears.length === 0 && selectedModel) {
+                    const currentYear = new Date().getFullYear();
+                    availableYears = Array.from({ length: currentYear - 1900 + 1 }, (_, i) => currentYear - i);
+                  }
+
+                  const years = availableYears.slice().sort((a, b) => b - a);
 
                   return (
                     <SearchableDropdown
@@ -1502,26 +1549,23 @@ const MotorListingForm = ({ initialValues, mode = "create" }) => {
           {steps.map((step, index) => (
             <div key={step.key} className="flex items-center">
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                  index <= activeStep
-                    ? "bg-green-500 text-white"
-                    : "bg-gray-200 text-gray-600"
-                }`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${index <= activeStep
+                  ? "bg-green-500 text-white"
+                  : "bg-gray-200 text-gray-600"
+                  }`}
               >
                 {index + 1}
               </div>
               <span
-                className={`ml-2 text-sm font-medium ${
-                  index <= activeStep ? "text-green-600" : "text-gray-500"
-                }`}
+                className={`ml-2 text-sm font-medium ${index <= activeStep ? "text-green-600" : "text-gray-500"
+                  }`}
               >
                 {step.title}
               </span>
               {index < steps.length - 1 && (
                 <div
-                  className={`w-16 h-1 mx-4 ${
-                    index < activeStep ? "bg-green-500" : "bg-gray-200"
-                  }`}
+                  className={`w-16 h-1 mx-4 ${index < activeStep ? "bg-green-500" : "bg-gray-200"
+                    }`}
                 />
               )}
             </div>
