@@ -91,8 +91,9 @@ const Navbar = () => {
     <div className="order-1 sm:order-2 w-full sm:w-auto text-center flex-1 sm:flex-none">
       <Link href="/">
         <Image
-          src={`${!isRTL ? "/logo.png" : "/logo_2.png"}`}
-          alt="Al Ma3rood Logo"
+          // src={`${!isRTL ? "/logo.png" : "/logo_2.png"}`}
+          src={"/logo_2.png"}
+          alt="Banglaar Chaka Logo"
           width={220}
           height={45}
           className="mx-auto max-h-10 sm:max-h-12 md:max-h-[50px] object-contain md:ltr:ml-[-60px] md:rtl:mr-[-60px] lg:ltr:ml-[-80px] lg:rtl:mr-[-80px]"

@@ -180,7 +180,7 @@ const scrollRight = () => {
                     >
                       <div className="h-12 sm:h-14 flex items-center justify-center mb-2 sm:mb-3">
                         <img
-                          src={item.image_url || item.icon || "https://img.icons8.com/ios/50/999999/car--v1.png"}
+                          src={item.image || item.icon || "https://img.icons8.com/ios/50/999999/car--v1.png"}
                           alt={item.name}
                           className="w-10 sm:w-12 opacity-70 group-hover/card:opacity-100 transition-opacity object-contain"
                         />
