@@ -16,12 +16,12 @@ const CarsbyMake = () => {
   // I will use a placeholder or check if there's a way to get icons. 
   // For now, I'll assume we render what we have.
   const brands = homeData?.newCars?.new_cars_by_brand || [];
-  const popular = homeData?.newCars?.popular || [];
-  const newlyLaunched = homeData?.newCars?.newly_launched || [];
-  const priceRange = homeData?.newCars?.new_cars_by_price || [];
+  // const popular = homeData?.newCars?.popular || [];
+  // const newlyLaunched = homeData?.newCars?.newly_launched || [];
+  // const priceRange = homeData?.newCars?.new_cars_by_price || [];
   // const brands = homeData?.newCars?.new_cars_by_brand || [];
 
-  const combinedData = [...brands, ...popular, ...newlyLaunched, ...priceRange];
+  // const combinedData = [...brands, ...popular, ...newlyLaunched, ...priceRange];
   // console.log("combinedData", homeData.newCars);
 
 
@@ -42,7 +42,7 @@ const CarsbyMake = () => {
   justify-items-center sm:justify-items-start
 ">
 
-          {combinedData.map((make, index) => (
+          { brands.map((make, index) => (
             <div
               key={index}
               onClick={() => handleRedirect(make)}

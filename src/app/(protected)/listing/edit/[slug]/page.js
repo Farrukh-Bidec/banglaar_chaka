@@ -28,6 +28,7 @@ const EditListingPage = ({ params: paramsPromise }) => {
     if (slug) {
       listingsApi.getListingBySlug(slug).then((res) => {
         setListing(res.listing);
+        console.log("listing", res.listing);
       });
     }
   }, [slug]);

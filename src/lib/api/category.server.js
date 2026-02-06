@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 export async function fetchCategory(categoryId) {
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD}category/?status=1&parent_id=${categoryId}`;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}category/?status=1&parent_id=${categoryId}`;
   const res = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export async function fetchCategory(categoryId) {
 
 export async function fetchAllCategories() {
   try {
-    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD}category?status=1&category_type=marketplace&limit=30`;
+    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}category?status=1&category_type=marketplace&limit=30`;
     const res = await fetch(url, {
       headers: { 'Content-Type': 'application/json' },
       cache: 'no-store',

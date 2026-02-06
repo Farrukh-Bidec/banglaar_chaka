@@ -25,7 +25,7 @@ const FeaturedNewCars = () => {
 
   const carData = {
     Popular: newCars.popular || [],
-    Upcoming: newCars.upcoming || [],
+    // Upcoming: newCars.upcoming || [],
     'Newly Launched': newCars.newly_launched || [],
   };
 

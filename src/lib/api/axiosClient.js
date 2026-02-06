@@ -10,9 +10,11 @@ const axiosClient = axios.create({
 // Request interceptor
 axiosClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
     return config;
   },
@@ -31,10 +33,12 @@ axiosClient.interceptors.response.use(
       // Handle different HTTP status codes
       if (error.response.status === 401) {
         // Handle unauthorized access
-        localStorage.removeItem('token');
-        window.location.href = '/login';
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('token');
+          window.location.href = '/login';
+        }
       }
-      
+
       // Convert to consistent error format
       return Promise.reject({
         message: error.response.data?.message || 'An error occurred',

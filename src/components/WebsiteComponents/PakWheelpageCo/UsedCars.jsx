@@ -56,15 +56,18 @@ const UsedCars = () => {
       query += `&category_id=${item.id}`;
     } else if (activeTab === "Make") {
       query += `&make=${encodeURIComponent(item.name)}`;
+      query += `&make_id=${item.id}`;
     } else if (activeTab === "Model") {
       query += `&model=${encodeURIComponent(item.name)}`;
+      query += `&model_id=${item.id}`;
     } else if (activeTab === "City") {
       query += `&city=${encodeURIComponent(item.name)}`;
+      query += `&city_id=${item.id}`;
     } else if (activeTab === "Body Type") {
       query += `&body_type=${encodeURIComponent(item.name)}`;
+      query += `&body_id=${item.id}`;
     } else if (activeTab === "Budget") {
-      if (item.min !== undefined) query += `&min_price=${item.min}`;
-      if (item.max !== undefined) query += `&max_price=${item.max}`;
+      query += `&budget_id=${item.id}`;
     }
 
     router.push(`/motors${query}`);

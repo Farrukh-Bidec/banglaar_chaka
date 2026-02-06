@@ -3,9 +3,9 @@ import { cookies } from "next/headers";
 export async function fetchProduct(productSlug) {
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
-  console.log('URL', `${process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD}listings/${productSlug}/show`);
+  console.log('URL', `${process.env.NEXT_PUBLIC_API_BASE_URL}listings/${productSlug}/show`);
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD}listings/${productSlug}/show`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}listings/${productSlug}/show`, {
     headers: {
       'Content-Type': 'application/json',
       ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
@@ -23,7 +23,7 @@ export async function fetchProduct(productSlug) {
 //   const token = cookieStore.get('auth-token')?.value;
 //   console.log('token', token);
 
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD}listings/${productSlug}/show`, {
+//   const res = await fetch(`${process.env. }listings/${productSlug}/show`, {
 //     headers: {
 //       'Content-Type': 'application/json',
 //       ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
@@ -41,8 +41,8 @@ export async function fetchProduct(productSlug) {
 //   const cookieStore = await cookies();
 //   const token = cookieStore.get('token')?.value;
 //   let url = categoryId
-//     ? `${process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD}listings?category_id=${categoryId}&status=1&page=${page}`
-//     : `${process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD}listings?page=${page}`;
+//     ? `${process.env.NEXT_PUBLIC_API_BASE_URL}listings?category_id=${categoryId}&status=1&page=${page}`
+//     : `${process.env.NEXT_PUBLIC_API_BASE_URL}listings?page=${page}`;
 //   const res = await fetch(url, {
 //     headers: {
 //       'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export async function fetchProductsForCategory(categoryId, search = "", city = "
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
 
-  let url = `${process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD}listings?status=1&page=${page}`;
+  let url = `${process.env.NEXT_PUBLIC_API_BASE_URL}listings?status=1&page=${page}`;
 
   if (categoryId) {
     url += `&category_id=${categoryId}`;
@@ -90,8 +90,8 @@ export async function fetchProductsForCategory(categoryId, search = "", city = "
 // export async function fetchAllListings(categoryId, categoryIdFilter, search) {
 //   try {
 //     const url = categoryId
-//       ? `${process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD}listings?category_id=${categoryId}&status=1`
-//       : `${process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD}listings?status=1`;
+//       ? `${process.env.NEXT_PUBLIC_API_BASE_URL}listings?category_id=${categoryId}&status=1`
+//       : `${process.env.NEXT_PUBLIC_API_BASE_URL}listings?status=1`;
 //     const res = await fetch(url, {
 //       headers: { 'Content-Type': 'application/json' },
 //       cache: 'no-store',
@@ -117,7 +117,7 @@ export async function fetchAllListings(categoryId, categoryIdFilter, search, cit
 
     if (city) params.set("city", city);
 
-    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD}listings?${params.toString()}`;
+    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}listings?${params.toString()}`;
     const res = await fetch(url, {
       headers: { 'Content-Type': 'application/json' },
       cache: 'no-store',
@@ -134,7 +134,7 @@ export async function fetchAllListings(categoryId, categoryIdFilter, search, cit
 export async function fetchAllListingsByFilter(payload) {
   console.log('category_id payload', payload)
   try {
-    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD}listings/filters`;
+    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}listings/filters`;
 
     const formattedPayload = {
       listing_type: payload?.listing_type || "marketplace",
@@ -239,7 +239,7 @@ export async function fetchAllListingsByFilter(payload) {
 export async function fetchAllMotorsApi(payload) {
 
   try {
-    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD}listings/filters`;
+    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}listings/filters`;
 
     const formattedPayload = {
       listing_type: "motors",
@@ -307,7 +307,7 @@ export async function fetchAllMotorsApi(payload) {
 
 export async function fetchListingsByReservePrice(reservePrice) {
   try {
-    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD}listings?reserve_price=${reservePrice}&status=1`;
+    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}listings?reserve_price=${reservePrice}&status=1`;
     const res = await fetch(url, {
       headers: { 'Content-Type': 'application/json' },
       cache: 'no-store',

@@ -80,9 +80,9 @@ export const marketplaceCards = [
   },
 ];
 
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL_MA3ROOD;
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export const Image_URL = process.env.NEXT_PUBLIC_BASE_IMAGE_URL_LIVE_MA3ROOD;
+export const Image_URL = process.env.NEXT_PUBLIC_BASE_IMAGE_URL_LIVE;
 
 export const Image_NotFound =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXcB8kmCDKILwOjlKT8LCcCflFgH9LJnAZDuLnZ5tAsa2-oFQsvD2A37DxYCmeNrvw8PI&usqp=CAU";
