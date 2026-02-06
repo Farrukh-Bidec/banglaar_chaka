@@ -1,4 +1,5 @@
 "use client";
+import { useHomeStore } from "@/lib/stores/homeStore";
 import { useState, useRef, useEffect } from "react";
 
 const citiesList = [
@@ -18,10 +19,14 @@ const Banner = () => {
   const [priceOpen, setPriceOpen] = useState(false);
   const [citySearch, setCitySearch] = useState("");
   const [selectedCity, setSelectedCity] = useState("All Cities");
+  const [city , setCity] = useState([])
   const wrapperRef = useRef(null);
   const prices = [5, 10, 15, 20, 25, 30];
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
+  const {homeData} = useHomeStore()
+  const bannerData = homeData?.hero_sections[0]
+
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -39,14 +44,33 @@ const Banner = () => {
 
   const otherCities = citiesList.filter((c) => !popularCities.includes(c));
 
+  
+
+  useEffect(() => {
+  console.log("bannerData updated:", bannerData);
+}, [bannerData]);
+
+  
+  
+  
+
   return (
-  <section className="min-h-[480px] sm:min-h-[520px] bg-gradient-to-b from-[#03162f] to-[#073b74] flex items-center justify-center py-8 sm:py-10 md:py-12 lg:py-16">
+  <section
+  className="relative min-h-[480px] sm:min-h-[520px] flex items-center justify-center py-8 sm:py-10 md:py-12 lg:py-16"
+  style={
+    bannerData?.image_url ? {
+          backgroundImage: `url('${bannerData.image_url}')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+      }: { background: "linear-gradient(to bottom, #03162f, #073b74)" }
+    }
+  >
   <div className="w-full max-w-6xl px-4 sm:px-6 lg:px-8 text-center text-white">
     <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-3 leading-tight">
-      Find Used Cars in Pakistan
+      {bannerData ?  bannerData.title :"Find Used Cars in Pakistan"}
     </h1>
     <p className="text-base sm:text-lg opacity-90 mb-8 sm:mb-10">
-      With thousands of cars, we have just the right one for you
+      {bannerData ? bannerData.description : "With thousands of cars, we have just the right one for you"}
     </p>
 
     {/* Search Bar Container */}

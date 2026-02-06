@@ -23,8 +23,7 @@ const CarsbyMake = () => {
 
   // const combinedData = [...brands, ...popular, ...newlyLaunched, ...priceRange];
   // console.log("combinedData", homeData.newCars);
-
-
+  console.log("brands", brands);
 
   return (
     <section className="py-8 sm:py-10 px-4 sm:px-6 lg:px-12 xl:px-20 bg-white">
@@ -58,7 +57,7 @@ const CarsbyMake = () => {
             overflow-hidden mb-3 sm:mb-4
           ">
                 <img
-                  src={make.image || make.icon || `https://ui-avatars.com/api/?name=${encodeURIComponent(make.name)}&background=random`}
+                  src={make.brand_image || make.icon || `https://ui-avatars.com/api/?name=${encodeURIComponent(make.name)}&background=random`}
                   alt={make.name}
                   className="
                 w-12 h-12 sm:w-14 sm:h-14 

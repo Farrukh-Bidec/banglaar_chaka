@@ -39,7 +39,7 @@ const BikesbyMake = () => {
               {/* Circular Logo */}
               <div className="w-[100px] h-[100px] bg-white rounded-full flex items-center justify-center border border-gray-200 shadow-sm group-hover:shadow-md transition-shadow duration-300 overflow-hidden p-4">
                 <img
-                  src={make.logo || make.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(make.name)}&background=random`}
+                  src={ make.brand_id || make.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(make.name)}&background=random`}
                   alt={make.name}
                   className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300"
                   onError={(e) => { e.target.src = 'https://via.placeholder.com/100?text=' + make.name; }}

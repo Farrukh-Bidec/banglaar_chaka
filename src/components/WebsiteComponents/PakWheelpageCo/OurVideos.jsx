@@ -1,35 +1,42 @@
-import React from 'react';
+import { getVideos } from '@/lib/api/videos';
+import { useHomeStore } from '@/lib/stores/homeStore';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 
 const OurVideos = () => {
-  // YouTube Thumbnail URL format: https://img.youtube.com/vi/VIDEO_ID/mqdefault.jpg
-  const mainVideo = {
-    title: "First look at Ferrari 296 GTB | Hybrid Ferrari ka kiya hi maza h...",
-    thumbnail: "https://img.youtube.com/vi/teAleRkTKSQ/maxresdefault.jpg",
-    link: "https://youtu.be/teAleRkTKSQ"
-  };
 
-  const sideVideos = [
-    {
-      title: "A daily driven GTR owner revie...",
-      thumbnail: "https://img.youtube.com/vi/eDojseQ0LK4/mqdefault.jpg",
-      link: "https://youtu.be/eDojseQ0LK4"
-    },
-    {
-      title: "Mercedes SLK 320 Restoration | ...",
-      thumbnail: "https://img.youtube.com/vi/46mGOez5j3g/mqdefault.jpg",
-      link: "https://youtu.be/46mGOez5j3g"
-    },
-    {
-      title: "Ferrari 296 GTB Drive Review | ...",
-      thumbnail: "https://img.youtube.com/vi/VqPHIkG67gI/mqdefault.jpg",
-      link: "https://youtu.be/VqPHIkG67gI"
-    },
-    {
-      title: "Audi A5 owner Review: Design, ...",
-      thumbnail: "https://img.youtube.com/vi/SJ9YcIOWasw/mqdefault.jpg",
-      link: "https://youtu.be/SJ9YcIOWasw"
-    }
-  ];
+  // const [mainVideo , setMainVideo] = useState([])
+  const { homeData } = useHomeStore();
+  const videos = homeData?.videos || [];
+  const mainVideo = videos.find(video => video.order === 1);
+  const sideVideos = videos.filter(video => video.order > 1)
+  .sort((a, b) => a.order - b.order);
+  console.log(mainVideo, "hh");
+
+
+
+  // const sideVideos = [
+  //   {
+  //     title: "A daily driven GTR owner revie...",
+  //     thumbnail: "https://img.youtube.com/vi/eDojseQ0LK4/mqdefault.jpg",
+  //     link: "https://youtu.be/eDojseQ0LK4"
+  //   },
+  //   {
+  //     title: "Mercedes SLK 320 Restoration | ...",
+  //     thumbnail: "https://img.youtube.com/vi/46mGOez5j3g/mqdefault.jpg",
+  //     link: "https://youtu.be/46mGOez5j3g"
+  //   },
+  //   {
+  //     title: "Ferrari 296 GTB Drive Review | ...",
+  //     thumbnail: "https://img.youtube.com/vi/VqPHIkG67gI/mqdefault.jpg",
+  //     link: "https://youtu.be/VqPHIkG67gI"
+  //   },
+  //   {
+  //     title: "Audi A5 owner Review: Design, ...",
+  //     thumbnail: "https://img.youtube.com/vi/SJ9YcIOWasw/mqdefault.jpg",
+  //     link: "https://youtu.be/SJ9YcIOWasw"
+  //   }
+  // ];
 
   return (
     <section className="bg-[#f2f3f3] py-12 px-4 flex justify-center font-sans">
@@ -42,13 +49,14 @@ const OurVideos = () => {
 
         {/* Videos Grid System */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          
+
           {/* Left Side: Large Main Video */}
-          <a href={mainVideo.link} target="_blank" rel="noreferrer" className="bg-white rounded-sm overflow-hidden shadow-sm border border-gray-200 group cursor-pointer">
+          {mainVideo &&
+          <a href={mainVideo.video_url} target="_blank" rel="noreferrer" className="bg-white rounded-sm overflow-hidden shadow-sm border border-gray-200 group cursor-pointer">
             <div className="relative aspect-video">
-              <img 
-                src={mainVideo.thumbnail} 
-                alt="Main Video" 
+              <img
+                src={mainVideo.thumbnail_url}
+                alt="Main Video"
                 className="w-full h-full object-cover"
               />
               {/* Play Button Overlay */}
@@ -64,15 +72,16 @@ const OurVideos = () => {
               </h3>
             </div>
           </a>
+          }
 
           {/* Right Side: 2x2 Small Videos Grid */}
           <div className="grid grid-cols-2 gap-4">
-            {sideVideos.map((video, index) => (
+            {sideVideos.slice(0, 4).map((video, index) => (
               <a key={index} href={video.link} target="_blank" rel="noreferrer" className="bg-white rounded-sm overflow-hidden shadow-sm border border-gray-200 group cursor-pointer">
                 <div className="relative aspect-video">
-                  <img 
-                    src={video.thumbnail} 
-                    alt={video.title} 
+                  <img
+                    src={video.thumbnail_url}
+                    alt={video.title}
                     className="w-full h-full object-cover"
                   />
                   {/* Small Play Button Overlay */}
