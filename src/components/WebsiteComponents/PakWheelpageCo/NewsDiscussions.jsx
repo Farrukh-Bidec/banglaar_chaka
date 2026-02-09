@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const NewsDiscussions = () => {
   const [activeTab, setActiveTab] = useState('Automotive News');
+  const { t } = useTranslation();
 
   const newsItems = [
     {
@@ -77,16 +79,16 @@ const NewsDiscussions = () => {
         
         {/* Header Section */}
         <div className="flex justify-between items-end mb-4">
-          <h2 className="text-[22px] font-semibold text-[#434343]">News, Reviews & Discussions</h2>
+          <h2 className="text-[22px] font-semibold text-[#434343]">{t("News, Reviews & Discussions")}</h2>
           <button className="text-[#3b6598] text-[14px] hover:underline">
-            {activeTab === 'Car Reviews' ? 'Read All Car Reviews' : 
-             activeTab === 'Discussions' ? 'View All Discussions' : 'Read All Recent News'}
+            {t(activeTab === 'Car Reviews' ? 'Read All Car Reviews' : 
+             activeTab === 'Discussions' ? 'View All Discussions' : 'Read All Recent News')}
           </button>
         </div>
 
         {/* Tabs System */}
         <div className="border-b border-gray-200 mb-6 flex space-x-8">
-          {['Automotive News', 'Car Reviews', 'Discussions'].map((tab) => (
+          {[t('Automotive News'), t('Car Reviews'), t('Discussions')].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -113,9 +115,9 @@ const NewsDiscussions = () => {
                   <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-all" />
                 </div>
                 <div className="flex flex-col">
-                  <h3 className="text-[#3b6598] text-[17px] font-semibold group-hover:underline">{item.title}</h3>
-                  <span className="text-gray-400 text-[13px] my-1">{item.date}</span>
-                  <p className="text-[#666] text-[14px] line-clamp-3 leading-relaxed">{item.description}</p>
+                  <h3 className="text-[#3b6598] text-[17px] font-semibold group-hover:underline">{t(item.title)}</h3>
+                  <span className="text-gray-400 text-[13px] my-1">{t(item.date)}</span>
+                  <p className="text-[#666] text-[14px] line-clamp-3 leading-relaxed">{t(item.description)}</p>
                 </div>
               </div>
             ))}
@@ -160,9 +162,9 @@ const NewsDiscussions = () => {
                         {disc.title}
                       </h3>
                       <div className="flex items-center gap-2 text-[12px] text-gray-400 mt-1">
-                        <span className="hover:underline">By {disc.author}</span>
+                        {/* <span className="hover:underline">By {disc.author}</span> */}
                         <span>•</span>
-                        <span className="hover:underline">{disc.category}</span>
+                        {/* <span className="hover:underline">{disc.category}</span> */}
                       </div>
                     </div>
                     <div className="text-[13px] text-gray-500 font-normal">
@@ -182,10 +184,10 @@ const NewsDiscussions = () => {
                 className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-all duration-700" 
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6 bg-black/20">
-                <h4 className="text-[12px] tracking-[4px] uppercase font-light">BYD Presents</h4>
-                <h2 className="text-4xl font-bold italic tracking-tighter my-2">THE SWITCH</h2>
+                <h4 className="text-[12px] tracking-[4px] uppercase font-light">{t("BYD Presents")}</h4>
+                <h2 className="text-4xl font-bold italic tracking-tighter my-2">{t("THE SWITCH")}</h2>
                 <button className="mt-4 border border-white px-6 py-2 text-[11px] uppercase tracking-widest hover:bg-white hover:text-black transition-all">
-                  Click to Watch
+                  {t("Click to Watch")}
                 </button>
               </div>
             </div>

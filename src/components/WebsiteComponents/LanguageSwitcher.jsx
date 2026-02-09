@@ -152,26 +152,24 @@ const LanguageSwitcher = ({ className = "", tabClassName = "" }) => {
       <button
         onClick={() => handleLanguageChange("en")}
         className={`px-2 py-1 rounded-full text-xs transition-all duration-300 
-          ${
-            selectedLang === "en"
-              ? "bg-white text-green-600"
-              : "text-white hover:bg-green-700 cursor-pointer"
+          ${selectedLang === "en"
+            ? "bg-white text-green-600"
+            : "text-white hover:bg-green-700 cursor-pointer"
           } 
           ${tabClassName}`}
       >
         English
       </button>
       <button
-        onClick={() => handleLanguageChange("ar")}
+        onClick={() => handleLanguageChange("bn")}
         className={`px-2 py-1 rounded-full text-xs transition-all duration-300 
-          ${
-            selectedLang === "ar"
-              ? "bg-white text-green-600"
-              : "text-white hover:bg-green-700 cursor-pointer"
+          ${selectedLang === "bn"
+            ? "bg-white text-green-600"
+            : "text-white hover:bg-green-700 cursor-pointer"
           } 
           ${tabClassName}`}
       >
-        العربية
+        বাংলা
       </button>
     </div>
   );

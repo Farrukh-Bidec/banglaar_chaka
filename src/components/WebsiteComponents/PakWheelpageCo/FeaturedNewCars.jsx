@@ -2,11 +2,13 @@
 import { useHomeStore } from '@/lib/stores/homeStore';
 import { useRouter } from 'next/navigation';
 import React, { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const FeaturedNewCars = () => {
   // ✅ Hooks always at the top
   const { homeData, isLoading } = useHomeStore();
-  const [activeTab, setActiveTab] = useState('Popular');
+  const { t } = useTranslation();
+  const [activeTab, setActiveTab] = useState(t('Popular'));
   const carouselRef = useRef(null);
   const router = useRouter();
 
@@ -26,7 +28,7 @@ const FeaturedNewCars = () => {
   const carData = {
     Popular: newCars.popular || [],
     // Upcoming: newCars.upcoming || [],
-    'Newly Launched': newCars.newly_launched || [],
+    [t('Newly Launched')]: newCars.newly_launched || [],
   };
 
   const tabs = Object.keys(carData).filter((tab) => carData[tab]?.length > 0);
@@ -111,12 +113,12 @@ const FeaturedNewCars = () => {
       <div className="max-w-7xl w-full">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-5 gap-3">
-          <h2 className="text-xl sm:text-[22px] font-semibold text-[#434343]">Featured New Cars</h2>
+          <h2 className="text-xl sm:text-[22px] font-semibold text-[#434343]"> {t("Featured New Cars")}</h2>
           <a
             href="#"
             className="text-[#3b6598] text-sm font-medium hover:underline whitespace-nowrap"
           >
-            View All New Cars →
+            {t("View All New Cars")} →
           </a>
         </div>
 
@@ -132,7 +134,7 @@ const FeaturedNewCars = () => {
                   : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
-                {tab}
+                {t(tab)}
               </button>
             ))}
           </div>

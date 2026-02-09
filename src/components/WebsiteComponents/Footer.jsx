@@ -1,7 +1,9 @@
+import { NewsletterApi } from "@/lib/api/newsletter";
 import Link from "next/link";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { FaTiktok, FaInstagram, FaFacebook, FaLinkedin } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const footerData = [
   {
@@ -46,9 +48,22 @@ const footerData = [
   },
 ];
 
+  
+
 const Footer = () => {
   const { t } = useTranslation();
+  const [email, setEmail] = React.useState("");
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await NewsletterApi.NewsLetter({ "email" :  email });
+      if(response.status) toast.success("Joined Successfully")
+    } catch (error) {
+      console.log("Error in newsletter " ,error);
+      toast.error("Failed to join")
+    }
+  };
   return (
    <footer className="bg-white border-t text-sm text-gray-700 mt-10">
   {/* Newsletter Section */}
@@ -57,18 +72,20 @@ const Footer = () => {
       <div className="text-center md:text-left max-w-md">
         <h2 className="text-xl font-semibold mb-1">
           {t("Join our newsletter")}
-        </h2>
+        </h2> 
         <p className="text-gray-500 text-sm md:text-base">
           {t(
             "Register now to get latest updates on promotions & coupons. Don’t worry, we’re not spam!"
           )}
         </p>
       </div>
-      <form className="flex flex-col sm:flex-row items-center gap-2 w-full md:w-auto">
+      <form className="flex flex-col sm:flex-row items-center gap-2 w-full md:w-auto" onSubmit={handleSubmit}>
         <input
           type="email"
           placeholder={t("Enter your email address")}
           className="border px-3 sm:px-4 py-2 rounded-md w-full"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
         />
         <button
           type="submit"
@@ -132,7 +149,7 @@ const Footer = () => {
   {/* Bottom Bar */}
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4 sm:gap-2">
     <p className="text-center sm:text-left">
-      {t(`Copyright ${new Date().getFullYear()} © All rights reserved`)}
+      {t("Copyright")} {new Date().getFullYear()} © {t("All rights reserved")}
     </p>
     <div className="relative group flex flex-col items-center justify-center">
       <div className="flex items-center gap-3 sm:gap-4 transition-all duration-300 group-hover:opacity-20 group-hover:blur-[1px] flex-wrap justify-center">

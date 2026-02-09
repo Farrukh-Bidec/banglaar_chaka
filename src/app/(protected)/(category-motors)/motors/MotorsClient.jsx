@@ -39,8 +39,8 @@ const MotorsClient = ({ initialProducts, pagination, initialFilters = {} }) => {
         model: initialFilters.model || "",
         year_min: initialFilters.year || "",
         year_max: "",
-        price_min: initialFilters.min_price || undefined,
-        price_max: initialFilters.max_price || undefined,
+        min_price: initialFilters.min_price || "",
+        max_price: initialFilters.max_price || "",
         fuel_type: initialFilters.fuel_type || "",
         transmission: initialFilters.transmission || "",
         body_style: initialFilters.body_type || "",
@@ -62,15 +62,12 @@ const MotorsClient = ({ initialProducts, pagination, initialFilters = {} }) => {
         setIsLoading(true);
         try {
             const nextPage = currentPage + 1;
+
             const payload = {
                 ...filters,
-                max_price: filters?.price_max,
-                min_price: filters?.price_min,
-                search: filters?.search,
                 sort: sortBy,
                 listing_type: "motors",
                 pagination: { page: nextPage, per_page: 6 },
-                category_id: filters?.category_id || "",
             };
 
             const response = await motorsApi.getMotorsByFilter(payload);
@@ -83,41 +80,6 @@ const MotorsClient = ({ initialProducts, pagination, initialFilters = {} }) => {
             } else {
                 setHasMore(false);
             }
- // Assuming getMotorsByFilter handles pagination or similar call
-
-            // If the API wrapper returns directly an array or object, adjust here. 
-            // Based on previous code: 
-            // "const response = await propertiesApi.getPropertiesByFilter(payload);" 
-            // Wait, previous loadMore used "propertiesApi" but loadMotorListings used "motorsApi". 
-            // I should use "motorsApi" as in loadMotorListings or check if propertiesApi was intended. 
-            // The previous loadMore had: "const response = await propertiesApi.getPropertiesByFilter(payload);"
-            // BUT loadMotorListings had: "const response = await motorsApi.getMotorsByFilter(payload);"
-            // I will use motorsApi.getMotorsByFilter as it seems more correct for "MotorListings".
-
-            // const newData = response || [];
-            // Assuming response contains pagination info if we need to check end of list accurately. 
-            // If getMotorsByFilter returns just the array (as implied by setMotorListings(response || []) in loadMotorListings), 
-            // we might not get pagination metadata here. 
-            // However, the original loadMore logic used `response?.pagination?.last_page`. 
-            // Given the user wants to keep functionalities "while making sure code does not break", 
-            // and I saw `propertiesApi` usage in `loadMore` earlier which might be a copy-paste error in the original code,
-            // I will stick to `motorsApi` but be careful about the response structure.
-            // If `motorsApi.getMotorsByFilter` returns an array, we can't get `last_page`.
-            // Let's assume for now it returns just data like in loadMotorListings. 
-            // But wait, `loadMotorListings` sets `setMotorListings(response || [])`.
-            // If I use the same API for loadMore, I might lose pagination info.
-            // But if `loadMotorListings` works, `motorsApi` is the correct one.
-            // I'll stick to `motorsApi.getMotorsByFilter(payload)`. 
-            // If it returns an array, checking length > 0 is the best guess for "has more" if we don't have total pages.
-
-            if (newData.length > 0) {
-                setMotorListings((prev) => [...prev, ...newData]);
-                setCurrentPage(nextPage);
-                // If we don't know total pages, we might keep hasMore true until we get empty list.
-                setHasMore(newData.length >= 6); // Assuming per_page is 6.
-            } else {
-                setHasMore(false);
-            }
         } catch (err) {
             console.error("❌ Error loading more:", err);
             setHasMore(false);
@@ -126,22 +88,21 @@ const MotorsClient = ({ initialProducts, pagination, initialFilters = {} }) => {
         }
     }, [currentPage, hasMore, isLoading, filters, sortBy]);
 
+
     // Load motor listings on filter/sort change
     const loadMotorListings = async () => {
         setIsLoading(true);
         try {
             const payload = {
                 ...filters,
-                max_price: filters?.price_max,
-                min_price: filters?.price_min,
-                search: filters?.search,
-                category_id: filters?.category_id || "",
                 sort: sortBy,
+                listing_type: "motors",
                 pagination: {
-                    page: 1, // Reset to page 1 for new search
+                    page: 1,
                     per_page: 30,
                 },
             };
+
 
             const response = await motorsApi.getMotorsByFilter(payload);
     const listings = normalizeListings(response);
@@ -156,23 +117,28 @@ const MotorsClient = ({ initialProducts, pagination, initialFilters = {} }) => {
                 setHasMore(false);
             }
             setCurrentPage(1);
+            setIsLoading(false);
+
         } catch (error) {
             console.error("Error loading motor listings:", error);
             // toast.error("Failed to load motor listings"); // toast not imported, removing
             setMotorListings([]);
-        } finally {
             setIsLoading(false);
         }
     };
 
     // Effect to reload when relevant state changes
-    useEffect(() => {
-        loadMotorListings();
-    }, [filters.category_id, filters.make, filters.model, filters.min_price, filters.max_price, filters.city, sortBy]);
+    // useEffect(() => {
+    //     loadMotorListings();
+    // }, [filters.category_id, filters.make, filters.model, filters.min_price, filters.max_price, filters.city, sortBy]);
     // Added other filter dependencies since we removed the generic "searchQuery" or reliance on just one prop.
     // Basically if initialFilters changed (which they won't), or if we had UI to change them (we don't).
     // Filters are likely static after mount unless we add `clearFilters` logic.
     // sortBy changes via UI.
+
+    useEffect(() => {
+        loadMotorListings();
+    }, [filters, sortBy]);
 
     // Intersection Observer
     useEffect(() => {
@@ -203,8 +169,8 @@ const MotorsClient = ({ initialProducts, pagination, initialFilters = {} }) => {
             model: "",
             year_min: "",
             year_max: "",
-            price_min: undefined,
-            price_max: undefined,
+            min_price: "",
+            max_price: "",
             fuel_type: "",
             transmission: "",
             body_style: "",
@@ -217,12 +183,10 @@ const MotorsClient = ({ initialProducts, pagination, initialFilters = {} }) => {
             category_id: null,
             city: "",
         });
+
         setSortBy("price_low");
-        setCurrentPage(1);
-        // loadMotorListings will be triggered by useEffect dependency change if we add filters to dependency
-        // or we can call it explicitly if we remove filters from dependency to avoid double call.
-        // Let's rely on useEffect with explicit dependencies on filter values.
     };
+
 
     // Apply sorting client-side for immediate feedback? 
     // The API does sorting, but the original code had client-side sorting on `motorListings`. 
@@ -337,7 +301,7 @@ const MotorsClient = ({ initialProducts, pagination, initialFilters = {} }) => {
                             : "grid-cols-1 md:mx-10"
                             }`}
                     >
-                        {sortedListings.map((listing) => (
+                        {sortedListings?.map((listing) => (
                             <MotorListingCard
                                 key={listing.id}
                                 listing={listing}

@@ -20,48 +20,47 @@ export default async function page({ searchParams }) {
     return { key, value };
   });
   console.log("finalobj", obj);
-  const entries = Object.entries(params);
-  const [lastKey, lastValue] = entries[entries.length - 1] || [];
-  console.log("Last key:", lastKey, "Last value:", lastValue);
-  const lastObj = entries.length ? { [entries[entries.length - 1][0]]: entries[entries.length - 1][1] } : {};
-  console.log("Last object:", lastObj);
+  // Create a payload from all params
+  const payload = {
+    listing_type: "motors",
+    pagination: {
+      page: 1,
+      per_page: 30
+    }
+  };
 
+  // Map 'search' param or fallback to 'make' if 'search' is missing (handling legacy url)
+  if (params.search) payload.search = params.search;
+  else if (params.make) payload.search = params.make;
 
+  // Handle City
+  if (params.city && params.city !== "All Cities" && params.city !== "null") {
+    payload.city = params.city;
+  }
 
+  // Handle Prices (parse to Int and ignore "null")
+  const minPrice = params.min_price || params.min;
+  if (minPrice && minPrice !== "null") payload.min_price = parseInt(minPrice);
 
-  console.log("makeaasas_id", category_id, make_id, model_id, city_id, body_id, budget_id);
-  console.log("make_id", make_id);
+  const maxPrice = params.max_price || params.max;
+  if (maxPrice && maxPrice !== "null") payload.max_price = parseInt(maxPrice);
 
-  // const [listings] = await Promise.all([filterApi.getAllFilters(lastObj)]);
-  // useEffect(()=> {
-  const payload = lastKey ? {
-    [lastKey]: lastValue
-  } : {};
-  console.log("payload", payload);
+  // Pass other filters if valid
+  if (params.category_id) payload.category_id = params.category_id;
+  if (params.body_type) payload.body_type = params.body_type;
+  if (params.year) payload.year = params.year;
+  if (params.transmission) payload.transmission = params.transmission;
+  if (params.fuel_type) payload.fuel_type = params.fuel_type;
+  if (params.condition) payload.condition = params.condition;
+
+  console.log("Final Payload for API:", payload);
   const listings = await filterApi.getAllFilters(payload);
-  console.log("listings", listings);
+  console.log("Listings Response:", listings);
   // },[])
 
 
   const [catResult,] = await Promise.all([
     fetchAllCategories(),
-    // fetchAllListingsByFilter({
-    //   listing_type: "motors",
-    //   pagination: {
-    //     page: 1,
-    //   },
-    //   category_id,
-    //   city,
-    //   make,
-    //   model,
-    //   body_type,
-    //   min_price,
-    //   max_price,
-    //   year,
-    //   transmission,
-    //   fuel_type,
-    //   condition,
-    // }),
 
   ]);
   const pagination = {
@@ -92,6 +91,7 @@ export default async function page({ searchParams }) {
           transmission,
           fuel_type,
           condition,
+          search: params.search || params.make,
         }}
       />
     </div>

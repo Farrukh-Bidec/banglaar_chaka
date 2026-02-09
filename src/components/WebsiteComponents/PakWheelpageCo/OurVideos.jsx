@@ -2,12 +2,14 @@ import { getVideos } from '@/lib/api/videos';
 import { useHomeStore } from '@/lib/stores/homeStore';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const OurVideos = () => {
 
   // const [mainVideo , setMainVideo] = useState([])
   const { homeData } = useHomeStore();
   const videos = homeData?.videos || [];
+  const {t} = useTranslation();
   const mainVideo = videos.find(video => video.order === 1);
   const sideVideos = videos.filter(video => video.order > 1)
   .sort((a, b) => a.order - b.order);
@@ -43,8 +45,8 @@ const OurVideos = () => {
       <div className="max-w-6xl w-full">
         {/* Header Section */}
         <div className="flex justify-between items-end mb-6">
-          <h2 className="text-[22px] font-semibold text-[#434343]">Browse Our Videos</h2>
-          <button className="text-[#3b6598] text-[14px] hover:underline">View All Videos</button>
+          <h2 className="text-[22px] font-semibold text-[#434343]">{t("Browse Our Videos")}</h2>
+          <button className="text-[#3b6598] text-[14px] hover:underline">{t("View All Videos")}</button>
         </div>
 
         {/* Videos Grid System */}

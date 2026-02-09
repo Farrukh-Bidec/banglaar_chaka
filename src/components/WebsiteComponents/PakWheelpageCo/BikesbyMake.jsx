@@ -2,10 +2,12 @@
 import { useHomeStore } from '@/lib/stores/homeStore';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const BikesbyMake = () => {
   const { homeData } = useHomeStore();
   const router = useRouter();
+  const { t } = useTranslation();
   const bikeMakes = homeData?.autoStore?.categories?.by_make || [];
 
   const handleRedirect = (make) => {
@@ -25,11 +27,11 @@ const BikesbyMake = () => {
       <div className="max-w-6xl w-full">
         {/* Header */}
         <h2 className="text-[22px] font-semibold text-[#434343] mb-8 text-center sm:text-start">
-          New Bikes by Make
+          {t("New Bikes by Make")}
         </h2>
 
         {/* Grid Container */}
-        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-10 gap-x-4">
+        <div className="flex overflow-x-auto gap-y-10 gap-x-4">
           {bikeMakes.slice(0, visibleCount).map((make, index) => (
             <div
               key={index}
@@ -55,7 +57,7 @@ const BikesbyMake = () => {
         </div>
 
         {/* View More / View Less Buttons */}
-        <div className="flex justify-center mt-8 gap-3 sm:hidden">
+        {/* <div className="flex justify-center mt-8 gap-3 sm:hidden">
           {visibleCount < bikeMakes.length && (
             <button
               onClick={() =>
@@ -76,7 +78,7 @@ const BikesbyMake = () => {
               View Less
             </button>
           )}
-        </div>
+        </div> */}
       </div>
     </section>
   );

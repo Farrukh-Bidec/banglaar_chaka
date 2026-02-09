@@ -174,7 +174,7 @@ console.log('Res', res);
     <div className="flex justify-center mb-6 md:mb-8">
       <Link href="/">
         <Image
-          src="/Ma3rood-logo-green.png"
+          src="/logo_2.png"
           alt="Ma3rood Logo"
           width={180}
           height={60}

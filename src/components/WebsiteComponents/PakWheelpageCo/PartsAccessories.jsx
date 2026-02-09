@@ -2,12 +2,15 @@
 import { useHomeStore } from '@/lib/stores/homeStore';
 import { useRouter } from 'next/navigation';
 import React, { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const PartsAccessories = () => {
   const { homeData } = useHomeStore();
   const [activeTab, setActiveTab] = useState('Sub Category');
   const carouselRef = useRef(null);
   const router = useRouter();
+  const {t} = useTranslation()
+
 
   const [isScrollable, setIsScrollable] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -92,7 +95,7 @@ const PartsAccessories = () => {
     <div className="py-8 px-4 sm:px-6 md:px-10 lg:px-12 xl:px-16 2xl:px-20 flex justify-center font-sans">
       <div className="max-w-7xl w-full">
         <h2 className="text-[22px] font-semibold text-[#434343] mb-6">
-          Auto Store Car Parts & Accessories
+          {t("Auto Store Car Parts & Accessories")}
         </h2>
 
         {/* Tabs */}
@@ -107,7 +110,7 @@ const PartsAccessories = () => {
                   : 'text-gray-500 hover:text-gray-800'
                 }`}
             >
-              {tab}
+              {t(tab)}
             </button>
           ))}
         </div>

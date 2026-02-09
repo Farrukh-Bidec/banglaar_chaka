@@ -1,6 +1,6 @@
 # Default values for NEXT_PUBLIC_* (defined once; override with docker build --build-arg)
-ARG NEXT_PUBLIC_API_BASE_URL=https://ma3rood.com/backend/api/
-ARG NEXT_PUBLIC_BASE_IMAGE_URL_LIVE=https://ma3rood.com/backend/storage/
+ARG NEXT_PUBLIC_API_BASE_URL=http://backend.banglarchaka.com/api/
+ARG NEXT_PUBLIC_BASE_IMAGE_URL_LIVE=http://backend.banglarchaka.com/storage/
 
 # Stage 1: Dependencies
 FROM node:20-alpine AS deps

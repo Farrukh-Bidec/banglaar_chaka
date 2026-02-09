@@ -2,9 +2,11 @@
 import { useHomeStore } from '@/lib/stores/homeStore';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const CarsbyMake = () => {
   const { homeData } = useHomeStore();
+  const { t } = useTranslation();
   const router = useRouter();
 
   const handleRedirect = (brand) => {
@@ -30,22 +32,17 @@ const CarsbyMake = () => {
       <div className="max-w-7xl mx-auto">
         {/* Title */}
         <h2 className="text-xl sm:text-[22px] font-semibold text-[#434343] mb-6 sm:mb-8 text-center sm:text-left">
-          New Cars by Make
+          {t("New Cars by Make")}
         </h2>
 
         {/* Grid Container */}
-        <div className="
-  grid  xs:grid-cols-3 
-  sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 
-  gap-5 sm:gap-6 md:gap-7 lg:gap-8
-  justify-items-center sm:justify-items-start
-">
+        <div className="flex overflow-x-auto gap-5 sm:gap-6 md:gap-7 lg:gap-8 justify-items-center sm:justify-items-start">
 
-          { brands.map((make, index) => (
+          {brands.map((make, index) => (
             <div
               key={index}
               onClick={() => handleRedirect(make)}
-              className="flex flex-col items-center group cursor-pointer transition-transform active:scale-95 sm:active:scale-100"
+              className="flex flex-col w-50  items-center group cursor-pointer transition-transform active:scale-95 sm:active:scale-100"
             >
               <div className="
             w-20 h-20 sm:w-24 sm:h-24 

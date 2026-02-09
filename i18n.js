@@ -9,7 +9,7 @@ i18n
   .use(LanguageDetector) // detects user language
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
-    supportedLngs: ['en', 'ar'],
+    supportedLngs: ['en', 'ar', 'bn'],
     fallbackLng: 'en',
     detection: {
       order: ['cookie', 'localStorage', 'htmlTag', 'path', 'subdomain'],

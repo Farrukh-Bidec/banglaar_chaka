@@ -27,7 +27,7 @@ export default async function RootLayout({ children }) {
       </head>
       <body
         // className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gray-50`}
-        className={`${lang === "ar" ? "font-Amiri" : "font-Poppins"} antialiased min-h-screen bg-gray-50`}
+        className={`${lang === "bn" ? "font-Amiri" : "font-Poppins"} antialiased min-h-screen bg-gray-50`}
       >
         <Toaster />
         <AuthCleanup />

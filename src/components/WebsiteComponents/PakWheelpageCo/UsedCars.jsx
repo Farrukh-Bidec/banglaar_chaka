@@ -2,6 +2,7 @@
 import { useHomeStore } from "@/lib/stores/homeStore";
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 const UsedCars = () => {
   const { homeData } = useHomeStore();
@@ -19,8 +20,8 @@ const UsedCars = () => {
     const el = carouselRef.current;
     if (!el) return;
     if (window.innerWidth < 640) {
-    setIsScrollable(false);
-    return;
+      setIsScrollable(false);
+      return;
     }
 
     const scrollable = el.scrollWidth > el.clientWidth;
@@ -82,7 +83,8 @@ const UsedCars = () => {
 
   console.log("aa", categories);
 
-  const tabs = ["Category", "City", "Make", "Model", "Budget", "Body Type"];
+  const tabs = ["Category", "City", "Make", "Model", "Budget", "Body Type"];  
+  const tabsBn = ["ক্যাটাগরি","শহর","ব্র্যান্ড","মডেল","বাজেট","বডি টাইপ"];
 
   const getItems = () => {
     if (activeTab === "Make") return brands;
@@ -104,40 +106,55 @@ const UsedCars = () => {
   }, [activeTab]);
 
   const CARD_WIDTH = 170; // approx md/lg card width incl gap
-const SCROLL_ITEMS = 2;
+  const SCROLL_ITEMS = 2;
 
-const scrollLeft = () => {
-  carouselRef.current.scrollBy({
-    left: -CARD_WIDTH * SCROLL_ITEMS,
-    behavior: "smooth",
-  });
-};
+  const scrollLeft = () => {
+    carouselRef.current.scrollBy({
+      left: -CARD_WIDTH * SCROLL_ITEMS,
+      behavior: "smooth",
+    });
+  };
 
-const scrollRight = () => {
-  carouselRef.current.scrollBy({
-    left: CARD_WIDTH * SCROLL_ITEMS,
-    behavior: "smooth",
-  });
-};
+  const scrollRight = () => {
+    carouselRef.current.scrollBy({
+      left: CARD_WIDTH * SCROLL_ITEMS,
+      behavior: "smooth",
+    });
+  };
+
+  const {t , i18n} = useTranslation()
+  const isRTL = i18n.language === "bn";
+
 
 
   return (
     <div className="bg-[#f2f3f3] py-8 sm:py-10 md:py-12 px-4 sm:px-6 lg:px-12 xl:px-20 flex flex-col items-center">
       <div className="max-w-7xl w-full">
         <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-6 text-center md:text-left">
-          Browse Used Cars
+          {t("Browse Used Cars")}
         </h2>
 
         {/* Tabs */}
         <div className="border-b border-gray-300 mb-6 md:mb-8 overflow-x-auto scrollbar-hide">
           <div className="flex flex-nowrap md:flex-nowrap gap-6 md:gap-8 pb-2">
-            {tabs.map((tab) => (
+            {!isRTL ? tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`pb-3 px-1 text-base md:text-[17px] font-medium transition-all whitespace-nowrap relative flex-shrink-0 ${activeTab === tab
-                    ? "text-gray-900 border-b-[3px] border-blue-500"
-                    : "text-gray-600 hover:text-gray-900"
+                  ? "text-gray-900 border-b-[3px] border-blue-500"
+                  : "text-gray-600 hover:text-gray-900"
+                  }`}
+              >
+                {tab}
+              </button>
+            )) : tabsBn.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`pb-3 px-1 text-base md:text-[17px] font-medium transition-all whitespace-nowrap relative flex-shrink-0 ${activeTab === tab
+                  ? "text-gray-900 border-b-[3px] border-blue-500"
+                  : "text-gray-600 hover:text-gray-900"
                   }`}
               >
                 {tab}

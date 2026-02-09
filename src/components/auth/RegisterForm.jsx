@@ -22,7 +22,7 @@ export default function RegisterForm({ onSubmit, isLoading }) {
     email: "",
     phone: "",
     // billing_address: "",
-    country: "Saudi Arabia", 
+    country: "Bangladesh", 
     governorate: '',
     city: "",
     region: "",
@@ -203,14 +203,14 @@ console.log('res', formData.region)
     }));
 
     // Step 2: Get state's ISO code
-    const stateList = State.getStatesOfCountry("SA"); // SA = Saudi Arabia
+    const stateList = State.getStatesOfCountry("BD"); // SA = Saudi Arabia
     const matchedState = stateList.find(
       (state) => state.name === selectedState
     );
     const isoCode = matchedState?.isoCode;
 
     // Step 3: Get cities based on selected state ISO code
-    const selectedCities = City.getCitiesOfState("SA", isoCode);
+    const selectedCities = City.getCitiesOfState("BD", isoCode);
     setCities(selectedCities); // set dropdown values
 
     // Step 4: Clear validation error if present
@@ -513,8 +513,8 @@ console.log('res', formData.region)
             {t("Phone Number")}
           </label>
           <PhoneInput
-            country={"sa"}
-            onlyCountries={["sa"]}
+            country={"bd"}
+            onlyCountries={["bd"]}
             disableDropdown={true}
             countryCodeEditable={false}
             value={formData.phone}
@@ -552,7 +552,7 @@ console.log('res', formData.region)
           <input
             type="text"
             name="country"
-            value="Saudi Arabia"
+            value="Bangladesh"
             disabled
             readOnly
             className="w-full mt-0.5 p-1.5 border border-gray-200 rounded-md bg-gray-100 text-gray-700 cursor-not-allowed"
